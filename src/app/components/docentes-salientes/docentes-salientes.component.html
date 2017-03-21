@@ -1,0 +1,116 @@
+<div class="container">
+    <h1 class="text-center">Formulario Registro Movilidad Docentes UD</h1>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="cedula">Cédula:</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="cedula" placeholder="Ingrese el número de cédula">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="nombres">Nombres:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="nombres" placeholder="Ingrese su(s) nombre">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="apellidos">Apellidos:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="apellidos" placeholder="Ingrese sus apellidos">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="facultad">Seleccione la facultad:</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="facultad">
+                    <option>Facultad de Artes - ASAB</option>
+                    <option>Facultad de Ciencias de la Educación</option>
+                    <option>Facultad de Ingeniería</option>
+                    <option>Facultad de Medio Ambiente y Recursos Naturales</option>
+                    <option>Facultad Tecnológica</option>
+                  </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="movilidad">Seleccione el tipo de movilidad:</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="movilidad">
+                    <option>Nacional</option>
+                    <option>Internacional</option>
+                    </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="estancia">Seleccione el periodo de estancia:</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="estancia">
+                    <option>Corta estancia (Hasta un mes)</option>
+                    <option>Mediana estancia (Entre 1 y 12 meses)</option>
+                    <option>Larga estancia (Mayor a 1 año)</option>
+                    </select>
+            </div>
+        </div>
+        <legend class="text-center">Periodo</legend>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="fechainicio">Seleccione la fecha de inicio:</label>
+            <div class="col-sm-4">
+                <input type="date" class="form-control" id="fechainicio" placeholder="Ingrese la fecha de inicio">
+            </div>
+            <label class="control-label col-sm-2" for="fechafin">Seleccione la fecha de finalización:</label>
+            <div class="col-sm-4">
+                <input type="date" class="form-control" id="fechafin" placeholder="Ingrese la fecha de finalización">
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="clasificacionMovilidad">Seleccione la clasificación de movilidad:</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="clasificacionMovilidad">
+                    <option>Curso corto</option>
+                    <option>Estudios de Doctorado</option>
+                    <option>Curso corto</option>
+                    <option>Estancia académica</option>
+                    <option>Estancia de investigación</option>
+                    <option>Misión académica</option>
+                    <option>Formación postgradual en estudios de Estudios de Maestría</option>
+                    <option>Formación postgradual en estudios de doctorado</option>
+                    <option>Formación postgradual en estudios de post doctorado</option>
+                    <option>Actividades académicas en el marco de becas o convocatorias</option>
+                    <option>Representaciones en eventos académicos</option>
+                    <option>Representación en eventos científicos (investigación e investigación-creación)</option>
+                    <option>Representación en eventos culturales y artísticos</option>
+                    <option>Representación en eventos deportivos</option>
+                    </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="intitucion">Nombre de la IES, Empresa o Institución de Destino:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="intitucion" placeholder="Ingrese IES, Empresa o Institución de Destino">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="paisdestino">País de Destino:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="paisdestino" placeholder="Ingrese País de Destino">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="presupuesto">Presupuesto Asignado:</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="presupuesto" placeholder="Ingrese Presupuesto Asignado">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="actoadministrativo">Acto administrativo del apoyo a la movilidad (Resolución - Contrato u otro):</label>
+            <div class="col-sm-10">
+                <input type="file" class="form-control" id="actoadministrativo">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-success">Enviar</button>
+            </div>
+        </div>
+    </form>
+</div>

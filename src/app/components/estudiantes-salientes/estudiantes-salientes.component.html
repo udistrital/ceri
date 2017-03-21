@@ -1,0 +1,147 @@
+<div class="container">
+    <h1 class="text-center">Formulario Registro Movilidad Estudiantes UD</h1>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="cedula">Número de identificación:</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="cedula" placeholder="Ingrese el número de identificación">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="tipo_documento">Tipo de documento:</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="tipo_documento">
+                    <option>Tarjeta de Identidad</option>
+                    <option>Cédula de Ciudadania</option>
+                    <option>Cédula de Estranjeria</option>
+                    <option>Pasaporte</option>
+                  </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="nombres">Nombres:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="nombres" placeholder="Ingrese su(s) nombre">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="apellidos">Apellidos:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="apellidos" placeholder="Ingrese sus apellidos">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="clasificacion_programa_academico">Clasificación del programa académico:</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="clasificacion_programa_academico">
+                    <option>Pregrado</option>
+                    <option>Posgrado</option>
+                    <option>Maestría</option>
+                  </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="programa_academico">Programa académico:</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="programa_academico">
+                        <option>Ingeniería de Sistemas</option>
+                        <option>Maestria en Dirección de Proyectos</option>
+                        </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="codigo_snies">Código SNIES:</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="codigo_snies" disabled>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="tipo_movilidad">Tipo de movilidad:</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="tipo_movilidad">
+                        <option>Nacional</option>
+                        <option>Internacional</option>
+                        </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="clasificacion_estancia">Clasificación por duración de la estancia:</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="clasificacion_estancia">
+                        <option>Corta estancia (Hasta 2 meses)</option>
+                        <option>Mediana estancia (Entre 2 y 12 meses)</option>
+                        <option>Larga estancia (Mayor a 1 año)</option>
+                        </select>
+            </div>
+        </div>
+        <legend class="text-center">Periodo</legend>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="fecha_inicio">Fecha de inicio:</label>
+            <div class="col-sm-4">
+                <input type="date" class="form-control" id="fecha_inicio">
+            </div>
+            <label class="control-label col-sm-2" for="fecha_fin">Fecha de finalización:</label>
+            <div class="col-sm-4">
+                <input type="date" class="form-control" id="fecha_fin">
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="categoria_movilidad">Categoria de la movilidad:</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="categoria_movilidad">
+                        <option>Representación académica en eventos académicos / científicos</option>
+                        <option>Representación académica en eventos artísticos</option>
+                        <option>Representación académica en eventos deportivos</option>
+                        <option>Curso corto</option>
+                        <option>Práctica</option>
+                        <option>Pasantía</option>
+                        <option>Semestre académico</option>
+                        <option>Intercambio</option>
+                        <option>Rotaciones médicas</option>
+                        <option>Doble titulación</option>
+                        <option>Co-titulación o titulación conjunta</option>
+                        <option>Actividades académicas en el marco de becas o convocatorias</option>
+                    </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="pais_destino">País de destino:</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="pais_movilidad">
+                        <option>Colombia</option>
+                        <option>México</option>
+                    </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="convenio">Convenio:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="convenio" placeholder="Convenio, Red o Asociación u otro concepto en el que participa el estudiante">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="institucion">Nombre de la IES, Institución o Empresa de destino:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="institucion" placeholder="Nombre de la IES, Institución o Empresa de destino">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="presupuesto">Presupuesto asignado:</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="presupuesto" placeholder="Presupuesto asignado">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="acto_administrativo">Acto administrativo del apoyo a la movilidad (Resolución - Contrato u otro):</label>
+            <div class="col-sm-10">
+                <input type="file" class="form-control" id="acto_adminstrativo">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-success">Envíar</button>
+            </div>
+        </div>
+    </form>
+</div>
