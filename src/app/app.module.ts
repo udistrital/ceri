@@ -5,12 +5,14 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { NavComponent } from './components/nav/nav.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { DocentesSalientesComponent } from './components/docentes-salientes/docentes-salientes.component';
 import { EstudiantesSalientesComponent } from './components/estudiantes-salientes/estudiantes-salientes.component';
 import { DocentesEntrantesComponent } from './components/docentes-entrantes/docentes-entrantes.component';
 import { EstudiantesEntrantesComponent } from './components/estudiantes-entrantes/estudiantes-entrantes.component';
 import { routes } from './app.routes';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { routes } from './app.routes';
     DocentesSalientesComponent,
     EstudiantesSalientesComponent,
     DocentesEntrantesComponent,
-    EstudiantesEntrantesComponent
+    EstudiantesEntrantesComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,
