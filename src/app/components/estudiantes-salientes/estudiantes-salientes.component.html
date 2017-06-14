@@ -26,46 +26,46 @@
             </div>
         </form>
         <!--Formulario que muestra los datos del estudiante buscado-->
-        <form class="form-horizontal" #datosEstudianteForm="ngForm" *ngIf="datos_estudiante">
+        <form class="form-horizontal" #datosEstudianteForm="ngForm" *ngIf="datos_persona">
             <legend class="text-center"><span class="glyphicon glyphicon-user"></span> Datos Estudiante</legend>
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="nombres">Nombres:</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" id="nombres" name="nombres" [(ngModel)]="datos_estudiante.nombres" #nombres="ngModel" readonly>
+                    <input type="text" class="form-control" id="nombres" name="nombres" [(ngModel)]="datos_persona.nombres" #nombres="ngModel" readonly>
                 </div>
 
                 <label class="control-label col-sm-2" for="apellidos">Apellidos:</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" id="apellidos" name="apellidos" [(ngModel)]="datos_estudiante.apellidos" #apellidos="ngModel" readonly>
+                    <input type="text" class="form-control" id="apellidos" name="apellidos" [(ngModel)]="datos_persona.apellidos" #apellidos="ngModel" readonly>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="clasificacion_programa_academico">Clasificación del programa académico:</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" id="clasificacion_programa_academico" name="clasificacion_programa_academico" [(ngModel)]="datos_estudiante.clasificacion_programa_academico" #clasificacion_programa_academico="ngModel" readonly>
+                    <input type="text" class="form-control" id="clasificacion_programa_academico" name="clasificacion_programa_academico" [(ngModel)]="datos_persona.clasificacion_programa_academico" #clasificacion_programa_academico="ngModel" readonly>
                 </div>
 
                 <label class="control-label col-sm-2" for="programa_academico">Programa académico:</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" id="programa_academico" name="programa_academico" [(ngModel)]="datos_estudiante.programa_academico" #programa_academico="ngModel" readonly>
+                    <input type="text" class="form-control" id="programa_academico" name="programa_academico" [(ngModel)]="datos_persona.programa_academico" #programa_academico="ngModel" readonly>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="facultad">Facultad:</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" id="facultad" name="facultad" [(ngModel)]="datos_estudiante.facultad" #facultad="ngModel" readonly>
+                    <input type="text" class="form-control" id="facultad" name="facultad" [(ngModel)]="datos_persona.facultad" #facultad="ngModel" readonly>
                 </div>
             </div>
 
         </form>
-        <div *ngIf="!datos_estudiante" class="alert alert-danger col-md-12">
+        <div *ngIf="!datos_persona" class="alert alert-danger col-md-12">
             <span class="glyphicon glyphicon-warning"></span> No se encontro ningún estudiante
         </div>
         <!--Formulario con los datos de la movilidad-->
-        <form class="form-horizontal" #datosMovilidadForm="ngForm" *ngIf="datos_estudiante">
+        <form class="form-horizontal" #datosMovilidadForm="ngForm" *ngIf="datos_persona">
 
             <legend class="text-center"><span class="glyphicon glyphicon-globe"></span> Datos Movilidad</legend>
 

@@ -13,7 +13,7 @@ export class EstudiantesEntrantesComponent implements OnInit {
         'numero': null
     };
 
-    datos_estudiante = {
+    datos_persona = {
         'identificacion': 20121020079,
         'nombres': 'Catalina',
         'apellidos': 'Cano',
