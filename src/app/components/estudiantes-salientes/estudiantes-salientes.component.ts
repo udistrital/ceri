@@ -19,13 +19,15 @@ export class EstudiantesSalientesComponent implements OnInit {
         'apellidos': 'Cano',
         'clasificacion_programa_academico': 'Pregrado',
         'programa_academico': 'Ingenieria de Sistemas',
-        'codigo_snies': 123456
+        'codigo_snies': 123456,
+        'facultad': 'Ingenieria'
     };
 
     datos_movilidad = {
         'tipo_movilidad': 'nacional',
         'fecha_inicio': '',
         'fecha_fin': '',
+        'periodo_estancia': 'corto',
         'categoria_movilidad': 1,
         'pais_destino': 'colombia',
         'convenio': '',
