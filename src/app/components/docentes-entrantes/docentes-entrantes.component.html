@@ -10,170 +10,156 @@
     </div>
 
     <div class="col-md-12 jumbotron">
-        <h1>Formulario de Registro</h1>
+        <h1 class="text-center">Docentes Entrantes</h1>
         <hr class="my-4">
         <br>
+        <!--Formulario para buscar los datos de un docente-->
+        <form class="form-horizontal" #buscarDatosForm="ngForm">
+            <div class="form-group">
+                <label class="control-label col-md-2" for="identificacion">Número de identificación:</label>
+                <div class="col-md-7">
+                    <input type="number" class="form-control" id="identificacion" name="identificacion" placeholder="Ingrese el número de identificación" [(ngModel)]="identificacion.valor" #identificacion="ngModel" required>
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-success" [disabled]="!buscarDatosForm.valid">Buscar</button>
+                </div>
+            </div>
+        </form>
+        <!--Formulario que muestra los datos del docente buscado-->
+        <form class="form-horizontal" #datosEstudianteForm="ngForm" *ngIf="datos_persona">
+            <legend class="text-center"><span class="glyphicon glyphicon-user"></span> Datos Docente</legend>
 
-        <form class="form-horizontal">
-            <fieldset>
-                <div class="form-group">
-                    <label for="tipoMovilidad" class="col-lg-5 control-label">Tipo de Movilidad Entrante</label>
-                    <div class="col-lg-5">
-                        <select class="form-control" id="tipoMovilidad">
-                      <option>Nacional</option>
-                      <option>Internacional</option>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="nombres">Nombres:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="nombres" name="nombres" [(ngModel)]="datos_persona.nombres" #nombres="ngModel" readonly>
+                </div>
+
+                <label class="control-label col-sm-2" for="apellidos">Apellidos:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="apellidos" name="apellidos" [(ngModel)]="datos_persona.apellidos" #apellidos="ngModel" readonly>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="pais_procedencia">País de procedencia:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="pais_procedencia" name="pais_procedencia" [(ngModel)]="datos_persona.pais_procedencia" #pais_procedencia="ngModel" readonly>
+                </div>
+            </div>
+        </form>
+        <div *ngIf="!datos_persona" class="alert alert-danger col-md-12">
+            <span class="glyphicon glyphicon-warning"></span> No se encontro ningún estudiante
+        </div>
+        <!--Formulario con los datos de la movilidad-->
+        <form class="form-horizontal" #datosMovilidadForm="ngForm" *ngIf="datos_persona">
+
+            <legend class="text-center"><span class="glyphicon glyphicon-globe"></span> Datos Movilidad</legend>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="tipo_movilidad">Tipo de movilidad:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="tipo_movilidad" id="tipo_movilidad" [(ngModel)]="datos_movilidad.tipo_movilidad" #tipo_movilidad="ngModel" required>
+                        <option value="nacional">Nacional</option>
+                        <option value="internacional">Internacional</option>
                     </select>
-                    </div>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label for="duracion" class="col-lg-5 control-label">Clasificación por duración de la estancia</label>
-                    <div class="col-lg-5">
-                        <select class="form-control" id="duracion">
-                      <option>Corta Estancia (Hasta un mes)</option>
-                      <option>Mediana Estancia (Entre 1 y 12 meses)</option>
-                      <option>Larga Estancia (Más de 12 meses)</option>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="fecha_inicio">Fecha de inicio:</label>
+                <div class="col-sm-4">
+                    <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" [(ngModel)]='datos_movilidad.fecha_inicio' #fecha_inicio="ngModel" required>
+                </div>
+                <label class="control-label col-sm-2" for="fecha_fin">Fecha de finalización:</label>
+                <div class="col-sm-4">
+                    <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" [(ngModel)]='datos_movilidad.fecha_fin' #fecha_fin="ngModel" required>
+                </div>
+            </div>
+            <div *ngIf="datos_movilidad.fecha_inicio != '' && datos_movilidad.fecha_fin != ''" class="alert alert-success col-md-12 text-center">
+                Clasificación por duración de la estancia: Corta estancia (Hasta dos meses) - Clasificación por duración de la estancia: Mediana estancia (Entre 2 y 12 meses) - Clasificación por duración de la estancia: Larga estancia (Mayor a 1 año)
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="categoria_movilidad">Categoria de la movilidad: </label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="categoria_movilidad" id="categoria_movilidad" [(ngModel)]="datos_movilidad.categoria_movilidad" #categoria_movilidad="ngModel" required>
+                        <option value="1">Invitado Nacional (Evento Académico)</option>
+                        <option value="2">Invitada Internacional (Evento Académico)</option>
+                        <option value="3">Docente Visitante</option>
+                        <option value="4">Docente Experto</option>
+                        <option value="5">Actividades Académicas en el marco de becas o convocatorias</option>
                     </select>
-                    </div>
                 </div>
+            </div>
 
-                <hr class="my-4">
-
-                <legend> <span class="glyphicon glyphicon-calendar"></span> Periodo</legend>
-                <div class="form-group">
-                    <label for="fechaIncio" class="col-lg-2 control-label">Fecha Inicio</label>
-                    <div class="col-lg-3">
-                        <input type="date" class="form-control" id="fechaInicio">
-                    </div>
-                    <label for="fechaFin" class="col-lg-2 control-label">Fecha Fin</label>
-                    <div class="col-lg-3">
-                        <input type="date" class="form-control" id="fechaFin">
-                    </div>
-
-                </div>
-
-                <hr class="my-4">
-
-
-                <div class="form-group">
-                    <label for="duracion" class="col-lg-5 control-label">Categoría de la Movilidad</label>
-                    <div class="col-lg-5">
-                        <select class="form-control" id="duracion">
-                      <option>Invitado Nacional (Evento Académico)</option>
-                      <option>Invitada Internacional (Evento Académico)</option>
-                      <option>Docente Visitante</option>
-                      <option>Docente Experto</option>
-                      <option>Actividades Académicas en el marco de becas o convocatorias</option>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="dependencia">Dependencia receptora: </label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="dependencia" id="dependencia" [(ngModel)]="datos_movilidad.dependencia" #dependencia="ngModel" required>
+                        <option value="1">RECTORÍA</option>
+                        <option value="2">SECRETARÍA GENERAL - COMISIONES DE ESTUDIO</option>
+                        <option value="3">VICERRECTORÍA ACADÉMICA</option>
+                        <option value="4">FACULTAD DE ARTES -ASAB</option>
+                        <option value="5">FACULTAD DE CIENCIAS Y EDUCACIÓN</option>
+                        <option value="6">FACULTAD DE INGENIERÍA</option>
+                        <option value="7">FACULTAD DEL MEDIO AMBIENTE Y RECURSOS NATURALES</option>
+                        <option value="8">FACULTAD TECNOLÓGICA</option>
+                        <option value="9">DOCTORADO INTERINSTITUCIONAL EN EDUCACIÓN</option>
+                        <option value="10">DOCTORADO EN INGENIERÍA</option>
+                        <option value="11">DOCTORADO EN ESTUDIOS SOCIALES</option>
+                        <option value="12">CENTRO DE INVESTIGACIONES Y DESARROLLO CIENTÍFICO -CIDC</option>
+                        <option value="13">CENTRO DE RELACIONES INTERINSTITUCIONALES</option>
+                        <option value="14">CENTRO DE BIENESTAR INSTITUCIONAL</option>
+                        <option value="15">IDEXUD</option>
+                        <option value="16">ILUD</option>
+                        <option value="17">IEIE</option>
+                        <option value="18">IPAZUD</option> 
                     </select>
-                    </div>
                 </div>
-                <hr class="my-4">
+            </div>
 
-                <div class="form-group">
-                    <label for="duracion" class="col-lg-5 control-label">Dependencia receptora en la UD</label>
-                    <div class="col-lg-5">
-                        <select class="form-control" id="duracion">
-                      <option>RECTORÍA</option>
-                      <option>SECRETARÍA GENERAL - COMISIONES DE ESTUDIO</option>
-                      <option>VICERRECTORÍA ACADÉMICA</option>
-                      <option>FACULTAD DE ARTES -ASAB</option>
-                      <option>FACULTAD DE CIENCIAS Y EDUCACIÓN</option>
-                      <option>FACULTAD DE INGENIERÍA</option>
-                      <option>FACULTAD DEL MEDIO AMBIENTE Y RECURSOS NATURALES</option>
-                      <option>FACULTAD TECNOLÓGICA</option>
-                      <option>DOCTORADO INTERINSTITUCIONAL EN EDUCACIÓN</option>
-                      <option>DOCTORADO EN INGENIERÍA</option>
-                      <option>DOCTORADO EN ESTUDIOS SOCIALES</option>
-                      <option>CENTRO DE INVESTIGACIONES Y DESARROLLO CIENTÍFICO -CIDC</option>
-                      <option>CENTRO DE RELACIONES INTERINSTITUCIONALES</option>
-                      <option>CENTRO DE BIENESTAR INSTITUCIONAL</option>
-                      <option>IDEXUD</option>
-                      <option>ILUD</option>
-                      <option>IEIE</option>
-                      <option>IPAZUD</option>                        
-                    </select>
-                    </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="area_conocimiento">Área de conocimiento:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="area_conocimiento" name="area_conocimiento" placeholder="Área de conocimiento" [(ngModel)]="datos_movilidad.area_conocimiento" #area_conocimiento="ngModel" required>
                 </div>
-                <hr class="my-4">
+            </div>
 
-                <legend><span class="glyphicon glyphicon-user"></span> Datos</legend>
-                <div class="form-group">
-                    <label for="tipoIdentificacion" class="col-lg-3 control-label">Tipo de Identificación</label>
-                    <div class="col-lg-3">
-                        <select class="form-control" id="tipoIdentificacion">
-                            <option>Tarjeta de Identidad</option>
-                            <option>Cédula de Ciudadanía</option>
-                            <option>Cédula de Extranjería</option>
-                            <option>Pasaporte</option>
-                        </select>
-                    </div>
-                    <label for="identificacion" class="col-lg-3 control-label">Número de Identificación</label>
-                    <div class="col-lg-3">
-                        <input type="number" class="form-control" id="identificacion">
-                    </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="concepto_participacion">Concepto de su participación:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="concepto_participacion" name="concepto_participacion" placeholder="Concepto de su participación" [(ngModel)]="datos_movilidad.concepto_participacion" #concepto_participacion="ngModel" required>
                 </div>
+            </div>
 
-                <div class="form-group">
-
-                    <label for="pais" class="col-lg-3 control-label">País de Procedencia</label>
-                    <div class="col-lg-3">
-                        <input type="text" class="form-control" id="pais">
-                    </div>
-
-
-                    <label for="nombre" class="col-lg-3 control-label">Nombre</label>
-                    <div class="col-lg-3">
-                        <input type="text" class="form-control" id="nombre">
-                    </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="institucion">Nombre de la IES, Institución o Empresa de destino:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="institucion" name="institucion" placeholder="Nombre de la IES, Institución o Empresa de destino" [(ngModel)]="datos_movilidad.institucion" #institucion="ngModel" required>
                 </div>
+            </div>
 
-                <div class="form-group">
-
-                    <label for="areaConocimiento" class="col-lg-3 control-label">Área de Conocimiento</label>
-                    <div class="col-lg-3">
-                        <input type="text" class="form-control" id="areaConocimiento">
-                    </div>
-
-
-                    <label for="concepto" class="col-lg-3 control-label">Concepto de su participación en la UD</label>
-                    <div class="col-lg-3">
-                        <input type="text" class="form-control" id="concepto">
-                    </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="presupuesto">Presupuesto asignado:</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="presupuesto" name="presupuesto" placeholder="Presupuesto asignado" [(ngModel)]="datos_movilidad.presupuesto" #presupuesto="ngModel" required>
                 </div>
-                <hr class="my-4">
+            </div>
 
-                <legend><span class="glyphicon glyphicon-briefcase"></span> Universidad</legend>
-                <div class="form-group">
-
-                    <label for="presupuesto" class="col-lg-3 control-label">Presupuesto Asigando </label>
-                    <div class="col-lg-5 input-group">
-                        <span class="input-group-addon">$</span>
-                        <input type="number" class="form-control" id="presupuesto">
-                        <span class="input-group-addon">.00</span>
-                    </div>
-
+            <div class="form-group">
+                <label class="control-label col-sm-7" for="acto_administrativo">Acto administrativo del apoyo a la movilidad (Resolución - Contrato u otro): </label>
+                <div class="col-sm-5">
+                    <input type="file" class="form-control" id="acto_administrativo" name="acto_administrativo" [(ngModel)]="datos_movilidad.acto_administrativo" #acto_administrativo="ngModel" required>
                 </div>
+            </div>
 
-                <div class="form-group">
-
-                    <label for="acto" class="col-lg-5 control-label">Acto administrativo del apoyo a la movilidad (Resolución - Contrato u otro)</label>
-                    <div class="col-lg-7">
-                        <input type="file" class="form-control" id="acto">
-                    </div>
-
+            <div class="form-group text-center">
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-lg btn-success" [disabled]="!datosMovilidadForm.valid">Envíar</button>
                 </div>
+            </div>
 
-                <hr class="my-4">
-                <br>
-
-                <div class="form-group block-center">
-                    <div class="col-lg-10 col-lg-offset-4">
-                        <button type="reset" class="btn btn-default"> <span class="glyphicon glyphicon-remove-sign"></span> Cancelar</button>
-                        <button type="submit" class="btn btn-success"> <span class="glyphicon glyphicon-ok-circle"></span> Enviar</button>
-                    </div>
-                </div>
-            </fieldset>
         </form>
     </div>
-
 </div>
