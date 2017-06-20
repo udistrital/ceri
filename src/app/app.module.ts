@@ -12,7 +12,7 @@ import { EstudiantesSalientesComponent } from './components/estudiantes-saliente
 import { DocentesEntrantesComponent } from './components/docentes-entrantes/docentes-entrantes.component';
 import { EstudiantesEntrantesComponent } from './components/estudiantes-entrantes/estudiantes-entrantes.component';
 import { routes } from './app.routes';
-
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,8 @@ import { routes } from './app.routes';
     EstudiantesSalientesComponent,
     DocentesEntrantesComponent,
     EstudiantesEntrantesComponent,
-    NavComponent
+    NavComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
