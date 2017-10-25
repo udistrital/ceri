@@ -18,7 +18,9 @@ export class DocentesSalientesComponent implements OnInit {
         'nombres': 'Catalina',
         'apellidos': 'Cano',
         'codigo_snies': 123456,
-        'facultad': 'Ingenieria'
+        'facultad': 'Ingenieria',
+        'direccion': 'calle 6',
+        'telefono': 123
     };
 
     datos_movilidad = {
@@ -30,7 +32,8 @@ export class DocentesSalientesComponent implements OnInit {
         'pais_destino': 'colombia',
         'institucion': '',
         'presupuesto': null,
-        'acto_administrativo': null
+        'nombre_acto_administrativo': '',
+        'enlace_acto_administrativo': ''
     };
 
     constructor() { }

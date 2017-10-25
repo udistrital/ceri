@@ -20,7 +20,9 @@ export class EstudiantesSalientesComponent implements OnInit {
         'clasificacion_programa_academico': 'Pregrado',
         'programa_academico': 'Ingenieria de Sistemas',
         'codigo_snies': 123456,
-        'facultad': 'Ingenieria'
+        'facultad': 'Ingenieria',
+        'direccion': 'calle 6',
+        'telefono': 123
     };
 
     datos_movilidad = {
@@ -33,7 +35,8 @@ export class EstudiantesSalientesComponent implements OnInit {
         'convenio': '',
         'institucion': '',
         'presupuesto': null,
-        'acto_administrativo': null
+        'nombre_acto_administrativo': '',
+        'enlace_acto_administrativo': ''
     };
 
     constructor() { }

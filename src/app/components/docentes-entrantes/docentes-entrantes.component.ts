@@ -15,7 +15,9 @@ export class DocentesEntrantesComponent implements OnInit {
         'identificacion': 20121020079,
         'nombres': 'Catalina',
         'apellidos': 'Cano',
-        'pais_procedencia': 'Argentina'
+        'pais_procedencia': 'Argentina',
+        'direccion': 'calle 6',
+        'telefono': 123
     };
 
     datos_movilidad = {
@@ -28,7 +30,8 @@ export class DocentesEntrantesComponent implements OnInit {
         'area_conocimiento': '',
         'concepto_participacion': '',
         'presupuesto': null,
-        'acto_administrativo': null
+        'nombre_acto_administrativo': '',
+        'enlace_acto_administrativo': ''
     };
 
     constructor() { }
