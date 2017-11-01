@@ -34,10 +34,38 @@ export class EstudiantesEntrantesComponent implements OnInit {
         'categoria_movilidad': 1,
         'convenio': '',
         'institucion': '',
-        'presupuesto': null,
+        'presupuesto': [],
         'nombre_acto_administrativo': '',
         'enlace_acto_administrativo': ''
     };
+
+    tipos_presupuesto = [
+        {
+            'nombre': 'Apoyo económico por parte de la institución',
+            'campo': 'presupuesto'
+        },
+        {
+            'nombre': 'Recursos propios',
+            'campo': 'descripcion'
+        },
+        {
+            'nombre': 'Beca externa',
+            'campo': 'descripcion'
+        }
+    ];
+
+    presupuesto_seleccionado = {
+        'tipo': null,
+        'descripcion': null
+    };
+
+    agregarPresupuesto(): void {
+        this.datos_movilidad.presupuesto.push(this.presupuesto_seleccionado);
+        this.presupuesto_seleccionado = {
+            'tipo': null,
+            'descripcion': null
+        };
+    }
 
     constructor() { }
 

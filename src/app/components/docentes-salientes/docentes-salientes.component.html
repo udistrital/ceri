@@ -135,8 +135,11 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="presupuesto">Presupuesto asignado:</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" id="presupuesto" name="presupuesto" placeholder="Presupuesto asignado" [(ngModel)]="datos_movilidad.presupuesto" #presupuesto="ngModel" required>
+                    <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#modalPresupuesto">Agregar</button>
                 </div>
+            </div>
+            <div *ngFor="let presupuesto of datos_movilidad.presupuesto" class="alert alert-success col-md-12 text-center">
+                {{ presupuesto.tipo }} - {{ presupuesto.descripcion }}
             </div>
 
             <div class="form-group">
@@ -161,4 +164,31 @@
 
         </form>
     </div>
+</div>
+
+<!-- Modal -->
+<div id="modalPresupuesto" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Seleccione el tipo de presupuesto</h4>
+        </div>
+        <div class="modal-body">
+            <div class="radio" *ngFor="let tipo_presupuesto of tipos_presupuesto">
+                <label  class="radio-inline">
+                    <input type="radio" name="tipo_presupuesto" ng-control="tipo_presupuesto" [value]="tipo_presupuesto.nombre" [(ngModel)]="presupuesto_seleccionado.tipo">
+                    {{ tipo_presupuesto.nombre }}
+                </label>
+            </div>
+            <input type="text" class="form-control" id="descripcion_presupuesto" name="descripcion_presupuesto" placeholder="Presupuesto o descripción" [(ngModel)]="presupuesto_seleccionado.descripcion">
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" [disabled]="!presupuesto_seleccionado.tipo" (click)="agregarPresupuesto()">Agregar</button>
+        </div>
+    </div>
+
+  </div>
 </div>

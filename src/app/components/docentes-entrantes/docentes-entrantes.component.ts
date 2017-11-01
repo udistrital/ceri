@@ -29,10 +29,38 @@ export class DocentesEntrantesComponent implements OnInit {
         'dependencia': 1,
         'area_conocimiento': '',
         'concepto_participacion': '',
-        'presupuesto': null,
+        'presupuesto': [],
         'nombre_acto_administrativo': '',
         'enlace_acto_administrativo': ''
     };
+
+    tipos_presupuesto = [
+        {
+            'nombre': 'Apoyo económico por parte de la institución',
+            'campo': 'presupuesto'
+        },
+        {
+            'nombre': 'Recursos propios',
+            'campo': 'descripcion'
+        },
+        {
+            'nombre': 'Beca externa',
+            'campo': 'descripcion'
+        }
+    ];
+
+    presupuesto_seleccionado = {
+        'tipo': null,
+        'descripcion': null
+    };
+
+    agregarPresupuesto(): void {
+        this.datos_movilidad.presupuesto.push(this.presupuesto_seleccionado);
+        this.presupuesto_seleccionado = {
+            'tipo': null,
+            'descripcion': null
+        };
+    }
 
     constructor() { }
 
