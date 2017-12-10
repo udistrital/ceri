@@ -2,7 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
@@ -13,6 +15,7 @@ import { DocentesEntrantesComponent } from './components/docentes-entrantes/doce
 import { EstudiantesEntrantesComponent } from './components/estudiantes-entrantes/estudiantes-entrantes.component';
 import { routes } from './app.routes';
 import { LoginComponent } from './components/login/login.component';
+import { AuthGuardService } from 'app/services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -28,10 +31,14 @@ import { LoginComponent } from './components/login/login.component';
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     HttpModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    OAuthModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    AuthGuardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

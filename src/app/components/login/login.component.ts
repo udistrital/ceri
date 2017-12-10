@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-login',
@@ -8,22 +9,17 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  error: string = null;
-
-  credenciales= {
-        'user': '',
-        'password': ''
-    };
-
   constructor(
-    private router: Router
+    private router: Router,
+    private oauthService: OAuthService
   ) { }
 
   ngOnInit() {
+    console.log(this.oauthService.hasValidAccessToken());
   }
 
   login(): void {
-    this.router.navigate(['/landing']);
+    this.oauthService.initImplicitFlow();
   }
 
 }

@@ -1,5 +1,7 @@
 import { Route } from '@angular/router';
 
+import { AuthGuardService } from 'app/services/auth-guard.service';
+
 import { AppComponent } from './app.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { DocentesSalientesComponent } from './components/docentes-salientes/docentes-salientes.component';
