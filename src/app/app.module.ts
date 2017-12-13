@@ -1,3 +1,4 @@
+// imports
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -6,6 +7,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { OAuthModule } from 'angular-oauth2-oidc';
 
+// componentes
 import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
 import { LandingComponent } from './components/landing/landing.component';
@@ -15,7 +17,10 @@ import { DocentesEntrantesComponent } from './components/docentes-entrantes/doce
 import { EstudiantesEntrantesComponent } from './components/estudiantes-entrantes/estudiantes-entrantes.component';
 import { routes } from './app.routes';
 import { LoginComponent } from './components/login/login.component';
-import { AuthGuardService } from 'app/services/auth-guard.service';
+
+// servicios
+import { AuthGuardService } from 'app/services/auth-guard/auth-guard.service';
+import { GetUserDataService } from 'app/services/get-user-data/get-user-data.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +42,8 @@ import { AuthGuardService } from 'app/services/auth-guard.service';
     OAuthModule.forRoot()
   ],
   providers: [
-    AuthGuardService
+    AuthGuardService,
+    GetUserDataService
   ],
   bootstrap: [AppComponent]
 })

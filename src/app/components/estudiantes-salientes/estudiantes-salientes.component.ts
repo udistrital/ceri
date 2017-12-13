@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GetUserDataService } from 'app/services/get-user-data/get-user-data.service';
 
 @Component({
     moduleId: module.id,
@@ -7,23 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EstudiantesSalientesComponent implements OnInit {
 
-    is_search = false;
-
-    identificacion = {
+    numero_identificacion = {
         'numero': null
     };
 
-    datos_persona = {
-        'identificacion': 20121020079,
-        'nombres': 'Catalina',
-        'apellidos': 'Cano',
-        'clasificacion_programa_academico': 'Pregrado',
-        'programa_academico': 'Ingenieria de Sistemas',
-        'codigo_snies': 123456,
-        'facultad': 'Ingenieria',
-        'direccion': 'calle 6',
-        'telefono': 123
-    };
+    datos_persona = null;
 
     datos_movilidad = {
         'tipo_movilidad': 'nacional',
@@ -59,20 +48,23 @@ export class EstudiantesSalientesComponent implements OnInit {
         'descripcion': null
     };
 
+    constructor(
+        private getUserDataService: GetUserDataService
+    ) { }
+
+    ngOnInit() { }
+
+    search(): void {
+        console.log(this.numero_identificacion.numero);
+        this.datos_persona = this.getUserDataService.getDataEstudiante(this.numero_identificacion.numero);
+    }
+
     agregarPresupuesto(): void {
         this.datos_movilidad.presupuesto.push(this.presupuesto_seleccionado);
         this.presupuesto_seleccionado = {
             'tipo': null,
             'descripcion': null
         };
-    }
-
-    constructor() { }
-
-    ngOnInit() { }
-
-    search(): void {
-        this.is_search = true;
     }
 
 }
