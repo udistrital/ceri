@@ -64,7 +64,7 @@
 
         </form>
 
-        <div *ngIf="!datos_persona" class="alert alert-danger col-md-12">
+        <div *ngIf="!datos_persona && identificacion.touched " class="alert alert-danger col-md-12">
             <span class="glyphicon glyphicon-warning"></span> No se encontro ningún docente
         </div>
 

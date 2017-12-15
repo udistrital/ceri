@@ -81,7 +81,7 @@
 
         </form>
 
-        <div *ngIf="!datos_persona" class="alert alert-danger col-md-12">
+        <div *ngIf="!datos_persona && identificacion.touched " class="alert alert-danger col-md-12">
             <span class="glyphicon glyphicon-warning"></span> No se encontro ningún estudiante
         </div>
 
@@ -90,6 +90,15 @@
 
             <legend class="text-center"><span class="glyphicon glyphicon-globe"></span> Datos Movilidad</legend>
 
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="pais_origen">País de origen:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="pais_origen" id="pais_origen" [(ngModel)]="datos_movilidad.pais_destino" #pais_destino="ngModel" required>
+                        <option value="colombia">Colombia</option>
+                        <option value="mexico">México</option>
+                    </select>
+                </div>
+            </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="tipo_movilidad">Tipo de movilidad:</label>
                 <div class="col-sm-10">

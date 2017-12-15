@@ -63,7 +63,7 @@
             </div>
         </form>
 
-        <div *ngIf="!datos_persona" class="alert alert-danger col-md-12">
+        <div *ngIf="!datos_persona && identificacion.touched " class="alert alert-danger col-md-12">
             <span class="glyphicon glyphicon-warning"></span> No se encontro ningún docente
         </div>
 
@@ -73,12 +73,27 @@
             <legend class="text-center"><span class="glyphicon glyphicon-globe"></span> Datos Movilidad</legend>
 
             <div class="form-group">
+                <label class="control-label col-sm-2" for="pais_origen">País de origen:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="pais_origen" id="pais_origen" [(ngModel)]="datos_movilidad.pais_destino" #pais_destino="ngModel" required>
+                        <option value="colombia">Colombia</option>
+                        <option value="mexico">México</option>
+                    </select>
+                    <div *ngIf="pais_destino.invalid && (pais_destino.dirty || pais_destino.touched)" class="alert alert-danger">
+                        <div *ngIf="pais_destino.errors.required">
+                          El pais de origen es requerido
+                        </div>
+                      </div>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="control-label col-sm-2" for="tipo_movilidad">Tipo de movilidad:</label>
                 <div class="col-sm-10">
                     <select class="form-control" name="tipo_movilidad" id="tipo_movilidad" [(ngModel)]="datos_movilidad.tipo_movilidad" #tipo_movilidad="ngModel" required disabled>
                         <option value="nacional">Nacional</option>
                         <option value="internacional">Internacional</option>
                     </select>
+                    
                 </div>
             </div>
 
@@ -86,10 +101,20 @@
                 <label class="control-label col-sm-2" for="fecha_inicio">Fecha de inicio:</label>
                 <div class="col-sm-4">
                     <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" [(ngModel)]='datos_movilidad.fecha_inicio' #fecha_inicio="ngModel" required>
+                    <div *ngIf="fecha_inicio.invalid && (fecha_inicio.dirty || fecha_inicio.touched)" class="alert alert-danger">
+                        <div *ngIf="fecha_inicio.errors.required">
+                          La fecha de inicio es requerida
+                        </div>
+                      </div>
                 </div>
                 <label class="control-label col-sm-2" for="fecha_fin">Fecha de finalización:</label>
                 <div class="col-sm-4">
                     <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" [(ngModel)]='datos_movilidad.fecha_fin' #fecha_fin="ngModel" required>
+                    <div *ngIf="fecha_fin.invalid && (fecha_fin.dirty || fecha_fin.touched)" class="alert alert-danger">
+                        <div *ngIf="fecha_fin.errors.required">
+                          La fecha de fin es requerida
+                        </div>
+                      </div>
                 </div>
             </div>
             <div *ngIf="datos_movilidad.fecha_inicio != '' && datos_movilidad.fecha_fin != ''" class="alert alert-success col-md-12 text-center">
@@ -108,6 +133,11 @@
                         <option value="6">Residencia artística</option>
                         <option value="7">Par académico</option>
                     </select>
+                    <div *ngIf="categoria_movilidad.invalid && (categoria_movilidad.dirty || categoria_movilidad.touched)" class="alert alert-danger">
+                        <div *ngIf="categoria_movilidad.errors.required">
+                          La categoria de la movilidad es requerida
+                        </div>
+                      </div>
                 </div>
             </div>
 
@@ -136,6 +166,11 @@
                         <option value="19">IPAZUD</option> 
                         <option value="20">ACREDITACIÓN</option>
                     </select>
+                    <div *ngIf="dependencia.invalid && (dependencia.dirty || dependencia.touched)" class="alert alert-danger">
+                        <div *ngIf="dependencia.errors.required">
+                          La dependencia receptora es requerida
+                        </div>
+                      </div>
                 </div>
             </div>
 
@@ -143,6 +178,11 @@
                 <label class="control-label col-sm-2" for="area_conocimiento">Área de conocimiento:</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="area_conocimiento" name="area_conocimiento" placeholder="Área de conocimiento" [(ngModel)]="datos_movilidad.area_conocimiento" #area_conocimiento="ngModel" required>
+                    <div *ngIf="area_conocimiento.invalid && (area_conocimiento.dirty || area_conocimiento.touched)" class="alert alert-danger">
+                        <div *ngIf="area_conocimiento.errors.required">
+                            El Área de conocimiento es requerida.
+                        </div>  
+                      </div>
                 </div>
             </div>
 
@@ -150,6 +190,11 @@
                 <label class="control-label col-sm-2" for="concepto_participacion">Concepto de su participación:</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="concepto_participacion" name="concepto_participacion" placeholder="Concepto de su participación" [(ngModel)]="datos_movilidad.concepto_participacion" #concepto_participacion="ngModel" required>
+                    <div *ngIf="concepto_participacion.invalid && (concepto_participacion.dirty || concepto_participacion.touched)" class="alert alert-danger">
+                        <div *ngIf="concepto_participacion.errors.required">
+                          El concepto de participación es requerido
+                        </div>
+                      </div>
                 </div>
             </div>
 
@@ -157,6 +202,11 @@
                 <label class="control-label col-sm-2" for="institucion">Nombre de la IES, Institución o Empresa de origen:</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="institucion" name="institucion" placeholder="Nombre de la IES, Institución o Empresa de destino" [(ngModel)]="datos_movilidad.institucion" #institucion="ngModel" required>
+                    <div *ngIf="institucion.invalid && (institucion.dirty || institucion.touched)" class="alert alert-danger">
+                        <div *ngIf="institucion.errors.required">
+                          El nombre de la IES, Institución o Empresa de origen es requerido
+                        </div>
+                      </div>
                 </div>
             </div>
 
@@ -174,6 +224,11 @@
                 <label class="control-label col-sm-2" for="nombre_acto_administrativo">Nombre acto administrativo:</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="nombre_acto_administrativo" name="nombre_acto_administrativo" placeholder="Nombre del acto administrativo" [(ngModel)]="datos_movilidad.nombre_acto_administrativo" #nombre_acto_administrativo="ngModel" required>
+                    <div *ngIf="nombre_acto_administrativo.invalid && (nombre_acto_administrativo.dirty || nombre_acto_administrativo.touched)" class="alert alert-danger">
+                        <div *ngIf="nombre_acto_administrativo.errors.required">
+                          El nombre acto administrativo es requerido
+                        </div>
+                      </div>
                 </div>
             </div>
 
@@ -181,6 +236,11 @@
                 <label class="control-label col-sm-2" for="enlace_acto_administrativo">Enlace acto administrativo: </label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="enlace_acto_administrativo" name="enlace_acto_administrativo" placeholder="Enlace del acto administrativo" [(ngModel)]="datos_movilidad.enlace_acto_administrativo" #enlace_acto_administrativo="ngModel" required>
+                    <div *ngIf="enlace_acto_administrativo.invalid && (enlace_acto_administrativo.dirty || enlace_acto_administrativo.touched)" class="alert alert-danger">
+                        <div *ngIf="enlace_acto_administrativo.errors.required">
+                          El enlace acto administrativo es requerido
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -211,7 +271,12 @@
                     {{ tipo_presupuesto.nombre }}
                 </label>
             </div>
-            <input type="text" class="form-control" id="descripcion_presupuesto" name="descripcion_presupuesto" placeholder="Presupuesto o descripción" [(ngModel)]="presupuesto_seleccionado.descripcion">
+            <input type="text" class="form-control" id="descripcion_presupuesto" name="descripcion_presupuesto" placeholder="Presupuesto o descripción" [(ngModel)]="presupuesto_seleccionado.descripcion" #enlace_presupuesto_seleccionado="ngModel" required>
+            <div *ngIf="!presupuesto_seleccionado.tipo" class="alert alert-danger">
+                <div >
+                  El tipo de presupuesto y la descripcion son requeridos
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-success" [disabled]="!presupuesto_seleccionado.tipo" (click)="agregarPresupuesto()">Agregar</button>
