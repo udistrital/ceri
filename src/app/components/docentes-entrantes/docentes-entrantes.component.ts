@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GetUserDataService } from 'app/services/get-user-data/get-user-data.service';
+import { DataService } from 'app/services/data-service/data.service';
 
 @Component({
     moduleId: module.id,
@@ -28,6 +29,8 @@ export class DocentesEntrantesComponent implements OnInit {
         'enlace_acto_administrativo': ''
     };
 
+    dependencias = [];
+
     tipos_presupuesto = [
         {
             'nombre': 'Apoyo económico por parte de la institución',
@@ -49,10 +52,13 @@ export class DocentesEntrantesComponent implements OnInit {
     };
 
     constructor(
-        private getUserDataService: GetUserDataService
+        private getUserDataService: GetUserDataService,
+        private dataService: DataService
     ) { }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.dependencias = this.dataService.getDependencias();
+    }
 
     search(): void {
         console.log(this.numero_identificacion.numero);

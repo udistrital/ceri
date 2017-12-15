@@ -21,6 +21,7 @@ import { LoginComponent } from './components/login/login.component';
 // servicios
 import { AuthGuardService } from 'app/services/auth-guard/auth-guard.service';
 import { GetUserDataService } from 'app/services/get-user-data/get-user-data.service';
+import { DataService } from 'app/services/data-service/data.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { GetUserDataService } from 'app/services/get-user-data/get-user-data.ser
   ],
   providers: [
     AuthGuardService,
-    GetUserDataService
+    GetUserDataService,
+    DataService
   ],
   bootstrap: [AppComponent]
 })

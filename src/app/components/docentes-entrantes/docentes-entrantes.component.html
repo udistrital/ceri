@@ -145,26 +145,7 @@
                 <label class="control-label col-sm-2" for="dependencia">Dependencia receptora: </label>
                 <div class="col-sm-10">
                     <select class="form-control" name="dependencia" id="dependencia" [(ngModel)]="datos_movilidad.dependencia" #dependencia="ngModel" required>
-                        <option value="1">RECTORÍA</option>
-                        <option value="2">SECRETARÍA GENERAL - COMISIONES DE ESTUDIO</option>
-                        <option value="3">VICERRECTORÍA ACADÉMICA</option>
-                        <option value="4">FACULTAD DE ARTES -ASAB</option>
-                        <option value="5">FACULTAD DE CIENCIAS Y EDUCACIÓN</option>
-                        <option value="6">FACULTAD DE INGENIERÍA</option>
-                        <option value="7">FACULTAD DEL MEDIO AMBIENTE Y RECURSOS NATURALES</option>
-                        <option value="8">FACULTAD TECNOLÓGICA</option>
-                        <option value="9">DOCTORADO INTERINSTITUCIONAL EN EDUCACIÓN</option>
-                        <option value="10">DOCTORADO EN INGENIERÍA</option>
-                        <option value="11">DOCTORADO EN ESTUDIOS SOCIALES</option>
-                        <option value="12">DOCTORADO EN ARTES</option>
-                        <option value="13">CENTRO DE INVESTIGACIONES Y DESARROLLO CIENTÍFICO -CIDC</option>
-                        <option value="14">CENTRO DE RELACIONES INTERINSTITUCIONALES</option>
-                        <option value="15">CENTRO DE BIENESTAR INSTITUCIONAL</option>
-                        <option value="16">IDEXUD</option>
-                        <option value="17">ILUD</option>
-                        <option value="18">IEIE</option>
-                        <option value="19">IPAZUD</option> 
-                        <option value="20">ACREDITACIÓN</option>
+                        <option *ngFor="let dependencia of dependencias" [value]="dependencia.id">{{ dependencia.valor }}</option>
                     </select>
                     <div *ngIf="dependencia.invalid && (dependencia.dirty || dependencia.touched)" class="alert alert-danger">
                         <div *ngIf="dependencia.errors.required">
