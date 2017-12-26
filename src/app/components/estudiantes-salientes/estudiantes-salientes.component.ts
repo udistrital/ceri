@@ -29,7 +29,9 @@ export class EstudiantesSalientesComponent implements OnInit {
         'enlace_acto_administrativo': ''
     };
 
+    // por servicio
     instituciones = [];
+    paises = [];
 
     tipos_presupuesto = [
         {
@@ -59,6 +61,7 @@ export class EstudiantesSalientesComponent implements OnInit {
 
     ngOnInit() {
         this.instituciones = this.dataService.getInstituciones();
+        this.paises = this.dataService.getPaises();
     }
 
     search(): void {

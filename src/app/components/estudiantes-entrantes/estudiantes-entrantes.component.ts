@@ -21,6 +21,7 @@ export class EstudiantesEntrantesComponent implements OnInit {
         'fecha_fin': '',
         'periodo_estancia': 'corto',
         'categoria_movilidad': 1,
+        'pais_origen': '',
         'convenio': '',
         'institucion': '',
         'presupuesto': [],
@@ -28,7 +29,9 @@ export class EstudiantesEntrantesComponent implements OnInit {
         'enlace_acto_administrativo': ''
     };
 
+    // por servicio
     instituciones = [];
+    paises = [];
 
     tipos_presupuesto = [
         {
@@ -58,6 +61,7 @@ export class EstudiantesEntrantesComponent implements OnInit {
 
     ngOnInit() {
         this.instituciones = this.dataService.getInstituciones();
+        this.paises = this.dataService.getPaises();
     }
 
     search(): void {

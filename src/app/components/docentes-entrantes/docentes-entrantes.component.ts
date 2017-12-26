@@ -21,6 +21,7 @@ export class DocentesEntrantesComponent implements OnInit {
         'fecha_fin': '',
         'periodo_estancia': 'corto',
         'categoria_movilidad': '',
+        'pais_origen': '',
         'dependencia': '',
         'area_conocimiento': '',
         'concepto_participacion': '',
@@ -29,7 +30,9 @@ export class DocentesEntrantesComponent implements OnInit {
         'enlace_acto_administrativo': ''
     };
 
+    // por servicio
     instituciones = [];
+    paises = [];
 
     dependencias = [];
 
@@ -61,6 +64,7 @@ export class DocentesEntrantesComponent implements OnInit {
     ngOnInit() {
         this.dependencias = this.dataService.getDependencias();
         this.instituciones = this.dataService.getInstituciones();
+        this.paises = this.dataService.getPaises();
     }
 
     search(): void {

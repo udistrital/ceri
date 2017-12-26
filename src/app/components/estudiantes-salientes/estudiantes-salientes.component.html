@@ -89,8 +89,7 @@
                 <label class="control-label col-sm-2" for="pais_destino">País de destino:</label>
                 <div class="col-sm-10">
                     <select class="form-control" name="pais_destino" id="pais_destino" [(ngModel)]="datos_movilidad.pais_destino" #pais_destino="ngModel" required>
-                        <option value="colombia">Colombia</option>
-                        <option value="mexico">México</option>
+                        <option *ngFor="let pais of paises" [value]="pais.id">{{ pais.valor }}</option>
                     </select>
                 </div>
             </div>

@@ -33,6 +33,21 @@ export class DataService {
     }
   ]
 
+  private paises = [
+    {
+      'id': 1,
+      'valor': 'Colombia'
+    },
+    {
+      'id': 2,
+      'valor': 'Perú'
+    },
+    {
+      'id': 3,
+      'valor': 'México'
+    }
+  ];
+
   constructor() { }
 
   // retorna las dependencias
@@ -43,6 +58,11 @@ export class DataService {
   // retorna las intituciones
   getInstituciones(): any {
     return this.instituciones;
+  }
+
+  // retorna los paises
+  getPaises(): any {
+    return this.paises;
   }
 
 }

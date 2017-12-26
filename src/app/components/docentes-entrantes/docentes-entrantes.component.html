@@ -75,12 +75,11 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="pais_origen">País de origen:</label>
                 <div class="col-sm-10">
-                    <select class="form-control" name="pais_origen" id="pais_origen" [(ngModel)]="datos_movilidad.pais_destino" #pais_destino="ngModel" required>
-                        <option value="colombia">Colombia</option>
-                        <option value="mexico">México</option>
+                    <select class="form-control" name="pais_origen" id="pais_origen" [(ngModel)]="datos_movilidad.pais_origen" #pais_origen="ngModel" required>
+                        <option *ngFor="let pais of paises" [value]="pais.id">{{ pais.valor }}</option>
                     </select>
-                    <div *ngIf="pais_destino.invalid && (pais_destino.dirty || pais_destino.touched)" class="alert alert-danger">
-                        <div *ngIf="pais_destino.errors.required">
+                    <div *ngIf="pais_origen.invalid && (pais_origen.dirty || pais_origen.touched)" class="alert alert-danger">
+                        <div *ngIf="pais_origen.errors.required">
                           El pais de origen es requerido
                         </div>
                       </div>

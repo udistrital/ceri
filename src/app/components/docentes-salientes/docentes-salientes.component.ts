@@ -21,14 +21,16 @@ export class DocentesSalientesComponent implements OnInit {
         'fecha_fin': '',
         'periodo_estancia': 'corto',
         'categoria_movilidad': 1,
-        'pais_destino': 'colombia',
+        'pais_destino': '',
         'institucion': '',
         'presupuesto': [],
         'nombre_acto_administrativo': '',
         'enlace_acto_administrativo': ''
     };
 
+    // por servicio
     instituciones = [];
+    paises = [];
 
     tipos_presupuesto = [
         {
@@ -57,6 +59,7 @@ export class DocentesSalientesComponent implements OnInit {
 
     ngOnInit() {
         this.instituciones = this.dataService.getInstituciones();
+        this.paises = this.dataService.getPaises();
      }
 
     search(): void {
