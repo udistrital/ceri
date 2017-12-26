@@ -16,6 +16,21 @@ export class DataService {
       'id': 3,
       'valor': 'Vicerrectoría académica'
     }
+  ];
+
+  private instituciones = [
+    {
+      'id': 1,
+      'valor': 'IES 1'
+    },
+    {
+      'id': 2,
+      'valor': 'IES 2'
+    },
+    {
+      'id': 3,
+      'valor': 'IES 3'
+    }
   ]
 
   constructor() { }
@@ -23,6 +38,11 @@ export class DataService {
   // retorna las dependencias
   getDependencias(): any {
     return this.dependencias;
+  }
+
+  // retorna las intituciones
+  getInstituciones(): any {
+    return this.instituciones;
   }
 
 }

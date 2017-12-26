@@ -29,6 +29,8 @@ export class DocentesEntrantesComponent implements OnInit {
         'enlace_acto_administrativo': ''
     };
 
+    instituciones = [];
+
     dependencias = [];
 
     tipos_presupuesto = [
@@ -58,6 +60,7 @@ export class DocentesEntrantesComponent implements OnInit {
 
     ngOnInit() {
         this.dependencias = this.dataService.getDependencias();
+        this.instituciones = this.dataService.getInstituciones();
     }
 
     search(): void {
