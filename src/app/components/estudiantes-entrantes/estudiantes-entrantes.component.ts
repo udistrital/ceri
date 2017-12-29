@@ -20,7 +20,7 @@ export class EstudiantesEntrantesComponent implements OnInit {
         'fecha_inicio': '',
         'fecha_fin': '',
         'periodo_estancia': 'corto',
-        'categoria_movilidad': 1,
+        'categoria_movilidad': '',
         'pais_origen': '',
         'convenio': '',
         'institucion': '',
@@ -32,6 +32,7 @@ export class EstudiantesEntrantesComponent implements OnInit {
     // por servicio
     instituciones = [];
     paises = [];
+    categorias_movilidad = [];
 
     tipos_presupuesto = [
         {
@@ -67,6 +68,11 @@ export class EstudiantesEntrantesComponent implements OnInit {
         });
         this.dataService.getPaises().then((data) => {
             this.paises = data;
+        }, (error) => {
+            console.log('error', error);
+        });
+        this.dataService.getCategoriasMovilidadEstudiantes().then((data) => {
+            this.categorias_movilidad = data;
         }, (error) => {
             console.log('error', error);
         });

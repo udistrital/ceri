@@ -22,7 +22,7 @@ export class LandingComponent implements OnInit {
         if (!claims) {
             return null;
         }
-        console.log(claims);
+        // console.log(claims);
         return claims['name'];
     }
 

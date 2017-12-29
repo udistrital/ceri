@@ -124,13 +124,7 @@
                 <label class="control-label col-sm-2" for="categoria_movilidad">Categoria de la movilidad: </label>
                 <div class="col-sm-10">
                     <select class="form-control" name="categoria_movilidad" id="categoria_movilidad" [(ngModel)]="datos_movilidad.categoria_movilidad" #categoria_movilidad="ngModel" required>
-                        <option value="1">Invitado Nacional</option>
-                        <option value="2">Invitado Internacional</option>
-                        <option value="3">Docente Visitante</option>
-                        <option value="4">Docente Experto</option>
-                        <option value="5">Actividades Académicas en el marco de becas o convocatorias</option>
-                        <option value="6">Residencia artística</option>
-                        <option value="7">Par académico</option>
+                        <option *ngFor="let categoria of categorias_movilidad" [value]="categoria.id">{{ categoria.valor }}</option>
                     </select>
                     <div *ngIf="categoria_movilidad.invalid && (categoria_movilidad.dirty || categoria_movilidad.touched)" class="alert alert-danger">
                         <div *ngIf="categoria_movilidad.errors.required">

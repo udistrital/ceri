@@ -122,18 +122,7 @@
                 <label class="control-label col-sm-2" for="categoria_movilidad">Categoria de la movilidad: </label>
                 <div class="col-sm-10">
                     <select class="form-control" name="categoria_movilidad" id="categoria_movilidad" [(ngModel)]="datos_movilidad.categoria_movilidad" #categoria_movilidad="ngModel" required>
-                        <option value="1">Representación académica en eventos académicos / científicos</option>
-                        <option value="2">Representación académica en eventos artísticos</option>
-                        <option value="3">Representación académica en eventos deportivos</option>
-                        <option value="4">Curso corto</option>
-                        <option value="5">Práctica</option>
-                        <option value="6">Pasantía</option>
-                        <option value="7">Semestre académico</option>
-                        <option value="8">Intercambio</option>
-                        <option value="9">Rotaciones médicas</option>
-                        <option value="10">Doble titulación</option>
-                        <option value="11">Co-titulación o titulación conjunta</option>
-                        <option value="12">Actividades académicas en el marco de becas o convocatorias</option>
+                        <option *ngFor="let categoria of categorias_movilidad" [value]="categoria.id">{{ categoria.valor }}</option>
                     </select>
                 </div>
             </div>

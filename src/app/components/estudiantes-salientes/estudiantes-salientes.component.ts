@@ -32,6 +32,7 @@ export class EstudiantesSalientesComponent implements OnInit {
     // por servicio
     instituciones = [];
     paises = [];
+    categorias_movilidad = [];
 
     tipos_presupuesto = [
         {
@@ -67,6 +68,11 @@ export class EstudiantesSalientesComponent implements OnInit {
         });
         this.dataService.getPaises().then((data) => {
             this.paises = data;
+        }, (error) => {
+            console.log('error', error);
+        });
+        this.dataService.getCategoriasMovilidadEstudiantes().then((data) => {
+            this.categorias_movilidad = data;
         }, (error) => {
             console.log('error', error);
         });
