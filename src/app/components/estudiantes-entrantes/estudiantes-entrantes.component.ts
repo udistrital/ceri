@@ -60,13 +60,24 @@ export class EstudiantesEntrantesComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.instituciones = this.dataService.getInstituciones();
-        this.paises = this.dataService.getPaises();
+        this.dataService.getInstituciones().then((data) => {
+            this.instituciones = data;
+        }, (error) => {
+            console.log('error', error);
+        });
+        this.dataService.getPaises().then((data) => {
+            this.paises = data;
+        }, (error) => {
+            console.log('error', error);
+        });
     }
 
     search(): void {
-        console.log(this.numero_identificacion.numero);
-        this.datos_persona = this.getUserDataService.getDataEstudiante(this.numero_identificacion.numero);
+        this.getUserDataService.getDataEstudiante(this.numero_identificacion.numero).then( (data) => {
+            this.datos_persona = data;
+        }, (error) => {
+            console.log('error', error);
+        });
     }
 
     agregarPresupuesto(): void {

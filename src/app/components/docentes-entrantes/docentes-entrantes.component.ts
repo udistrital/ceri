@@ -62,14 +62,29 @@ export class DocentesEntrantesComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.dependencias = this.dataService.getDependencias();
-        this.instituciones = this.dataService.getInstituciones();
-        this.paises = this.dataService.getPaises();
+        this.dataService.getDependencias().then((data) => {
+            this.dependencias = data;
+        }, (error) => {
+            console.log('error', error);
+        });
+        this.dataService.getInstituciones().then((data) => {
+            this.instituciones = data;
+        }, (error) => {
+            console.log('error', error);
+        });
+        this.dataService.getPaises().then((data) => {
+            this.paises = data;
+        }, (error) => {
+            console.log('error', error);
+        });
     }
 
     search(): void {
-        console.log(this.numero_identificacion.numero);
-        this.datos_persona = this.getUserDataService.getDataDocente(this.numero_identificacion.numero);
+        this.getUserDataService.getDataDocente(this.numero_identificacion.numero).then( (data) => {
+            this.datos_persona = data;
+        }, (error) => {
+            console.log('error', error);
+        });
     }
 
     agregarPresupuesto(): void {

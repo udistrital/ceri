@@ -52,17 +52,23 @@ export class DataService {
 
   // retorna las dependencias
   getDependencias(): any {
-    return this.dependencias;
+    return new Promise( (resolve, reject) => {
+      resolve(this.dependencias);
+    });
   }
 
   // retorna las intituciones
   getInstituciones(): any {
-    return this.instituciones;
+    return new Promise( (resolve, reject) => {
+      resolve(this.instituciones);
+    });
   }
 
   // retorna los paises
   getPaises(): any {
-    return this.paises;
+    return new Promise( (resolve, reject) => {
+      resolve(this.paises);
+    });
   }
 
 }
