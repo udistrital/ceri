@@ -48,6 +48,21 @@ export class DataService {
     }
   ];
 
+  private convenios = [
+    {
+      'id': 1,
+      'valor': 'Convenio'
+    },
+    {
+      'id': 2,
+      'valor': 'Red'
+    },
+    {
+      'id': 3,
+      'valor': 'Asociación'
+    }
+  ];
+
   private categorias_movilidad_docentes_entrantes = [
     {
       'id': 1,
@@ -212,21 +227,28 @@ export class DataService {
     });
   }
 
-  // retorna las categorias de movilidad
+  // retorna los convenios
+  getConvenios(): any {
+    return new Promise( (resolve, reject) => {
+      resolve(this.convenios);
+    })
+  }
+
+  // retorna las categorias de movilidad docentes entrantes
   getCategoriasMovilidadDocentesEntrantes(): any {
     return new Promise( (resolve, reject) => {
       resolve(this.categorias_movilidad_docentes_entrantes);
     });
   }
 
-  // retorna las categorias de movilidad
+  // retorna las categorias de movilidad docentes salientes
   getCategoriasMovilidadDocentesSalientes(): any {
     return new Promise( (resolve, reject) => {
       resolve(this.categorias_movilidad_docentes_salientes);
     });
   }
 
-  // retorna las categorias de movilidad
+  // retorna las categorias de movilidad estudiantes
   getCategoriasMovilidadEstudiantes(): any {
     return new Promise( (resolve, reject) => {
       resolve(this.categorias_movilidad_estudiantes);

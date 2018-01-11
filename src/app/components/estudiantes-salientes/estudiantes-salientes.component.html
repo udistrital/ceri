@@ -131,10 +131,13 @@
                 <label class="control-label col-sm-2" for="convenio">Convenio:</label>
                 <div class="col-sm-10">
                     <select class="form-control" name="convenio" id="convenio" [(ngModel)]="datos_movilidad.convenio" #convenio="ngModel" required>
-                        <option value="convenio">Convenio</option>
-                        <option value="red">Red</option>
-                        <option value="asociacion">Asociación</option>
+                        <option *ngFor="let convenio of convenios" [value]="convenio.id">{{ convenio.valor }}</option>
                     </select>
+                    <div *ngIf="convenio.invalid && (convenio.dirty || convenio.touched)" class="alert alert-danger">
+                        <div *ngIf="convenio.errors.required">
+                          El convenio es requerido
+                        </div>
+                    </div>
                 </div>
             </div>
 
