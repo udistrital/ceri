@@ -99,25 +99,25 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="fecha_inicio">Fecha de inicio:</label>
                 <div class="col-sm-4">
-                    <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" [(ngModel)]='datos_movilidad.fecha_inicio' #fecha_inicio="ngModel" required>
+                    <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" [(ngModel)]='datos_movilidad.fecha_inicio' (change)="calcularDuracionEstancia()" #fecha_inicio="ngModel" required>
                     <div *ngIf="fecha_inicio.invalid && (fecha_inicio.dirty || fecha_inicio.touched)" class="alert alert-danger">
                         <div *ngIf="fecha_inicio.errors.required">
-                          La fecha de inicio es requerida
+                            La fecha de inicio es requerida
                         </div>
-                      </div>
+                    </div>
                 </div>
                 <label class="control-label col-sm-2" for="fecha_fin">Fecha de finalización:</label>
                 <div class="col-sm-4">
-                    <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" [(ngModel)]='datos_movilidad.fecha_fin' #fecha_fin="ngModel" required>
+                    <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" [(ngModel)]='datos_movilidad.fecha_fin' (change)="calcularDuracionEstancia()" #fecha_fin="ngModel" required>
                     <div *ngIf="fecha_fin.invalid && (fecha_fin.dirty || fecha_fin.touched)" class="alert alert-danger">
                         <div *ngIf="fecha_fin.errors.required">
                           La fecha de fin es requerida
                         </div>
-                      </div>
+                    </div>
                 </div>
             </div>
             <div *ngIf="datos_movilidad.fecha_inicio != '' && datos_movilidad.fecha_fin != ''" class="alert alert-success col-md-12 text-center">
-                Clasificación por duración de la estancia: Corta estancia (Hasta dos meses) - Clasificación por duración de la estancia: Mediana estancia (Entre 2 y 12 meses) - Clasificación por duración de la estancia: Larga estancia (Mayor a 1 año)
+                Clasificación por duración de la estancia: {{ datos_movilidad.periodo_estancia }} estancia 
             </div>
 
             <div class="form-group">

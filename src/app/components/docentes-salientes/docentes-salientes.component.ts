@@ -76,6 +76,7 @@ export class DocentesSalientesComponent implements OnInit {
         });
      }
 
+    // busca el usuario
     search(): void {
         this.getUserDataService.getDataDocente(this.numero_identificacion.numero).then( (data) => {
             this.datos_persona = data;
@@ -84,6 +85,7 @@ export class DocentesSalientesComponent implements OnInit {
         });
     }
 
+    // agrega un presupuesto
     agregarPresupuesto(): void {
         this.datos_movilidad.presupuesto.push(this.presupuesto_seleccionado);
         this.presupuesto_seleccionado = {
@@ -91,4 +93,23 @@ export class DocentesSalientesComponent implements OnInit {
             'descripcion': null
         };
     }
+
+    // calcula la duración de la estancia
+    calcularDuracionEstancia(): void {
+        if (this.datos_movilidad.fecha_inicio !== '' && this.datos_movilidad.fecha_fin !== '') {
+            const fecha_inicio = this.datos_movilidad.fecha_inicio.split('-');
+            const fecha_fin = this.datos_movilidad.fecha_fin.split('-');
+            let duracion = (parseInt(fecha_fin[0], 10) - parseInt(fecha_inicio[0], 10)) * 12;
+            duracion -= parseInt(fecha_inicio[1], 10);
+            duracion += parseInt(fecha_fin[1], 10);
+            if (duracion <= 2) {
+                this.datos_movilidad.periodo_estancia = 'corta';
+            } else if (duracion <= 12) {
+                this.datos_movilidad.periodo_estancia = 'mediana';
+            } else {
+                this.datos_movilidad.periodo_estancia = 'larga';
+            }
+        }
+    }
+
 }
