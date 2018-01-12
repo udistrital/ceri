@@ -102,6 +102,11 @@ export class DocentesEntrantesComponent implements OnInit {
         };
     }
 
+    // eliminar presupuesto
+    eliminarPresupuesto(index: number): void {
+        this.datos_movilidad.presupuesto.splice(index, 1);
+    }
+
     // calcula la duración de la estancia
     calcularDuracionEstancia(): void {
         if (this.datos_movilidad.fecha_inicio !== '' && this.datos_movilidad.fecha_fin !== '') {

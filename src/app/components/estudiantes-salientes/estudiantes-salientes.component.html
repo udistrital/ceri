@@ -114,7 +114,7 @@
                     <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" [(ngModel)]='datos_movilidad.fecha_fin' (change)="calcularDuracionEstancia()" #fecha_fin="ngModel" required>
                 </div>
             </div>
-            <div *ngIf="datos_movilidad.fecha_inicio != '' && datos_movilidad.fecha_fin != ''" class="alert alert-success col-md-12 text-center">
+            <div *ngIf="datos_movilidad.fecha_inicio != '' && datos_movilidad.fecha_fin != ''" class="alert alert-success col-md-12 text-center"> 
                 Clasificación por duración de la estancia: {{ datos_movilidad.periodo_estancia }} estancia 
             </div>
 
@@ -161,7 +161,8 @@
                     <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#modalPresupuesto">Agregar</button>
                 </div>
             </div>
-            <div *ngFor="let presupuesto of datos_movilidad.presupuesto" class="alert alert-success col-md-12 text-center">
+            <div *ngFor="let presupuesto of datos_movilidad.presupuesto; let i = index" class="alert alert-success col-md-12 text-center">
+                <div class="close" (click)="eliminarPresupuesto(i)">&times;</div>
                 {{ presupuesto.tipo }} - {{ presupuesto.descripcion }}
             </div>
 
