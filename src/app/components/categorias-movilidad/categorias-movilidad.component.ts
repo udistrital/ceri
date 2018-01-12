@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoriasMovilidadComponent implements OnInit {
 
+  private categoria = {
+    'nombre': ''
+  }
+
   constructor() { }
 
   ngOnInit() {

@@ -63,7 +63,7 @@ export class DataService {
     }
   ];
 
-  private categorias_movilidad_docentes_entrantes = [
+  private categorias_movilidad = [
     {
       'id': 1,
       'valor': 'Invitado Nacional'
@@ -94,6 +94,7 @@ export class DataService {
     }
   ];
 
+  /*
   private categorias_movilidad_docentes_salientes = [
     {
       'id': 1,
@@ -203,6 +204,7 @@ export class DataService {
       'valor': 'Actividades académicas en el marco de becas o convocatorias'
     }
   ];
+  */
 
   constructor() { }
 
@@ -234,24 +236,10 @@ export class DataService {
     })
   }
 
-  // retorna las categorias de movilidad docentes entrantes
-  getCategoriasMovilidadDocentesEntrantes(): any {
+  // retorna las categorias de movilidad
+  getCategoriasMovilidad(): any {
     return new Promise( (resolve, reject) => {
-      resolve(this.categorias_movilidad_docentes_entrantes);
-    });
-  }
-
-  // retorna las categorias de movilidad docentes salientes
-  getCategoriasMovilidadDocentesSalientes(): any {
-    return new Promise( (resolve, reject) => {
-      resolve(this.categorias_movilidad_docentes_salientes);
-    });
-  }
-
-  // retorna las categorias de movilidad estudiantes
-  getCategoriasMovilidadEstudiantes(): any {
-    return new Promise( (resolve, reject) => {
-      resolve(this.categorias_movilidad_estudiantes);
+      resolve(this.categorias_movilidad);
     });
   }
 

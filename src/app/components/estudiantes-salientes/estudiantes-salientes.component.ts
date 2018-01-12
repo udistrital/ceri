@@ -72,7 +72,7 @@ export class EstudiantesSalientesComponent implements OnInit {
         }, (error) => {
             console.log('error', error);
         });
-        this.dataService.getCategoriasMovilidadEstudiantes().then((data) => {
+        this.dataService.getCategoriasMovilidad().then((data) => {
             this.categorias_movilidad = data;
         }, (error) => {
             console.log('error', error);

@@ -69,7 +69,7 @@ export class DocentesSalientesComponent implements OnInit {
         }, (error) => {
             console.log('error', error);
         });
-        this.dataService.getCategoriasMovilidadDocentesSalientes().then((data) => {
+        this.dataService.getCategoriasMovilidad().then((data) => {
             this.categorias_movilidad = data;
         }, (error) => {
             console.log('error', error);

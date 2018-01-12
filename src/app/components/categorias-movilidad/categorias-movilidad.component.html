@@ -10,9 +10,22 @@
   </div>
 
   <div class="col-md-12 jumbotron">
-      <h1 class="text-center">Administrar Categorías de Movilidad</h1>
-      <hr class="my-4">
-      <br>
+    <h1 class="text-center">Administrar Categorías de Movilidad</h1>
+    <hr class="my-4">
+    <br>
+
+    <!--Formulario para buscar los datos de un docente-->
+    <form class="form-horizontal" #agregarCategoriaForm="ngForm">
+      <div class="form-group">
+        <label class="control-label col-md-2" for="categoria">Nombre de la categoría:</label>
+        <div class="col-md-7">
+            <input type="text" class="form-control" id="categoria" name="categoria" placeholder="Ingrese el nombre de la categoría" [(ngModel)]="categoria.nombre" #categoria="ngModel" required>
+        </div>
+        <div class="col-md-3">
+            <button type="button" class="btn btn-success" [disabled]="!agregarCategoriaForm.valid" (click)="agregarCategoria()">Agregar</button>
+        </div>
+      </div>
+    </form>
 
   </div>
 
