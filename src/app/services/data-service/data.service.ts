@@ -243,4 +243,20 @@ export class DataService {
     });
   }
 
+  // agrega una categoria de movilidad
+  insertCategoriaMovilidad(categoria: any): any {
+    return new Promise( (resolve, reject) => {
+      this.categorias_movilidad.push(categoria);
+      resolve();
+    })
+  }
+
+  // elimina la categoria de movilidad
+  deleteCategoriaMovilidad(id: number): any {
+    return new Promise( (resolve, reject) => {
+      this.categorias_movilidad.splice(id, 1);
+      resolve();
+    })
+  }
+
 }

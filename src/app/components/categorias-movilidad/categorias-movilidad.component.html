@@ -19,7 +19,7 @@
       <div class="form-group">
         <label class="control-label col-md-2" for="categoria">Nombre de la categoría:</label>
         <div class="col-md-7">
-            <input type="text" class="form-control" id="categoria" name="categoria" placeholder="Ingrese el nombre de la categoría" [(ngModel)]="categoria.nombre" #categoria="ngModel" required>
+            <input type="text" class="form-control" id="categoria" name="categoria" placeholder="Ingrese el nombre de la categoría" [(ngModel)]="nueva_categoria.nombre" #categoria="ngModel" required>
         </div>
         <div class="col-md-3">
             <button type="button" class="btn btn-success" [disabled]="!agregarCategoriaForm.valid" (click)="agregarCategoria()">Agregar</button>
@@ -27,6 +27,33 @@
       </div>
     </form>
 
+    <div *ngFor="let categoria of categorias_movilidad; let i = index">
+      <div class="col-md-9">
+        <p>{{ categoria.valor }}</p>
+      </div>
+      <div class="col-md-3">
+          <button type="button" class="btn btn-sm btn-danger" (click)="eliminarCategoria(i)" data-toggle="modal" data-target="#modalConfirmacion">Eliminar</button>
+      </div>
+    </div>
+
   </div>
 
 </div>
+
+<!-- Modal -->
+<div id="modalConfirmacion" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">¿Esta deguro de eliminar la categoría de movilidad?</h4>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="confirmarEliminacion()" data-dismiss="modal">Confirmar</button>
+      <button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
+    </div>
+  </div>
+
+  </div>
