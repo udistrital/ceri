@@ -17,6 +17,8 @@ import { DocentesEntrantesComponent } from './components/docentes-entrantes/doce
 import { EstudiantesEntrantesComponent } from './components/estudiantes-entrantes/estudiantes-entrantes.component';
 import { routes } from './app.routes';
 import { LoginComponent } from './components/login/login.component';
+import { CategoriasMovilidadComponent } from './components/categorias-movilidad/categorias-movilidad.component';
+import { ConveniosComponent } from './components/convenios/convenios.component';
 
 // servicios
 import { AuthGuardService } from 'app/services/auth-guard/auth-guard.service';
@@ -32,7 +34,9 @@ import { DataService } from 'app/services/data-service/data.service';
     DocentesEntrantesComponent,
     EstudiantesEntrantesComponent,
     NavComponent,
-    LoginComponent
+    LoginComponent,
+    CategoriasMovilidadComponent,
+    ConveniosComponent
   ],
   imports: [
     BrowserModule,

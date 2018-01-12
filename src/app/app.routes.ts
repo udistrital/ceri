@@ -9,6 +9,8 @@ import { EstudiantesSalientesComponent } from './components/estudiantes-saliente
 import { DocentesEntrantesComponent } from './components/docentes-entrantes/docentes-entrantes.component';
 import { EstudiantesEntrantesComponent } from './components/estudiantes-entrantes/estudiantes-entrantes.component';
 import { LoginComponent } from 'app/components/login/login.component';
+import { CategoriasMovilidadComponent } from './components/categorias-movilidad/categorias-movilidad.component';
+import { ConveniosComponent } from './components/convenios/convenios.component';
 
 export const routes: Route[] = [
     { path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -17,5 +19,7 @@ export const routes: Route[] = [
     { path: 'docentes-salientes', component: DocentesSalientesComponent },
     { path: 'estudiantes-salientes', component: EstudiantesSalientesComponent },
     { path: 'docentes-entrantes', component: DocentesEntrantesComponent },
-    { path: 'estudiantes-entrantes', component: EstudiantesEntrantesComponent }
+    { path: 'estudiantes-entrantes', component: EstudiantesEntrantesComponent },
+    { path: 'categorias-movilidad', component: CategoriasMovilidadComponent },
+    { path: 'convenios', component: ConveniosComponent }
 ];
