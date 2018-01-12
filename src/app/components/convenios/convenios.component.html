@@ -10,10 +10,51 @@
   </div>
 
   <div class="col-md-12 jumbotron">
-      <h1 class="text-center">Administrar Convenios</h1>
-      <hr class="my-4">
-      <br>
+    <h1 class="text-center">Administrar Convenios</h1>
+    <hr class="my-4">
+    <br>
+
+    <!--Formulario para buscar los datos de un docente-->
+    <form class="form-horizontal" #agregarConvenioForm="ngForm">
+      <div class="form-group">
+        <label class="control-label col-md-2" for="convenio">Nombre del convenio:</label>
+        <div class="col-md-7">
+          <input type="text" class="form-control" id="convenio" name="convenio" placeholder="Ingrese el nombre del convenio" [(ngModel)]="nuevo_convenio.nombre" #convenio="ngModel" required>
+        </div>
+        <div class="col-md-3">
+          <button type="button" class="btn btn-success" [disabled]="!agregarConvenioForm.valid" (click)="agregarConvenio()">Agregar</button>
+        </div>
+      </div>
+    </form>
+
+    <div *ngFor="let convenio of convenios; let i = index">
+      <div class="col-md-9">
+        <p>{{ convenio.valor }}</p>
+      </div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-sm btn-danger" (click)="eliminarConvenio(i)" data-toggle="modal" data-target="#modalConfirmacion">Eliminar</button>
+      </div>
+    </div>
 
   </div>
 
+</div>
+
+<!-- Modal -->
+<div id="modalConfirmacion" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">¿Esta deguro de eliminar el convenio?</h4>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="confirmarEliminacion()" data-dismiss="modal">Confirmar</button>
+      <button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
+    </div>
+  </div>
+
+  </div>
 </div>

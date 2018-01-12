@@ -236,6 +236,22 @@ export class DataService {
     })
   }
 
+  // agrega convenios
+  insertConvenio(convenio: any): any {
+    return new Promise( (resolve, reject) => {
+      this.convenios.push(convenio);
+      resolve();
+    })
+  }
+
+  // elimina el convenio
+  deleteConvenio(id: number): any {
+    return new Promise( (resolve, reject) => {
+      this.convenios.splice(id, 1);
+      resolve();
+    })
+  }
+
   // retorna las categorias de movilidad
   getCategoriasMovilidad(): any {
     return new Promise( (resolve, reject) => {
