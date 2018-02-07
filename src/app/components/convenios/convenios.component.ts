@@ -27,7 +27,7 @@ export class ConveniosComponent implements OnInit {
 
   // obtiene los convenios
   getConvenios(): void {
-    this.dataService.getConvenios().then( (data) => {
+    this.dataService.getConvenios().subscribe( (data) => {
       this.convenios = data;
     }, (error) => {
         console.log('no se pudieron obtener los convenios', error);

@@ -77,7 +77,7 @@
                 <label class="control-label col-sm-2" for="pais_destino">País de destino:</label>
                 <div class="col-sm-10">
                     <select class="form-control" name="pais_destino" id="pais_destino" [(ngModel)]="datos_movilidad.pais_destino" #pais_destino="ngModel" required>
-                        <option *ngFor="let pais of paises" [value]="pais.id">{{ pais.valor }}</option>
+                        <option *ngFor="let pais of paises" [value]="pais.Id">{{ pais.Nombre }}</option>
                     </select>
                 </div>
             </div>
@@ -110,7 +110,7 @@
                 <label class="control-label col-sm-2" for="categoria_movilidad">Categoria de la movilidad: </label>
                 <div class="col-sm-10">
                     <select class="form-control" name="categoria_movilidad" id="categoria_movilidad" [(ngModel)]="datos_movilidad.categoria_movilidad" #categoria_movilidad="ngModel" required>
-                        <option *ngFor="let categoria of categorias_movilidad" [value]="categoria.id">{{ categoria.valor }}</option>
+                        <option *ngFor="let categoria of categorias_movilidad" [value]="categoria.Id">{{ categoria.Nombre }}</option>
                     </select>
                 </div>
             </div>
@@ -119,7 +119,7 @@
                 <label class="control-label col-sm-2" for="institucion">Nombre de la IES, Institución o Empresa de destino:</label>
                 <div class="col-sm-10">
                     <select class="form-control" name="institucion" id="institucion" [(ngModel)]="datos_movilidad.institucion" #institucion="ngModel" required>
-                        <option *ngFor="let institucion of instituciones" [value]="institucion.id">{{ institucion.valor }}</option>
+                        <option *ngFor="let institucion of instituciones" [value]="institucion.Id">{{ institucion.Nombre }}</option>
                     </select>
                     <div *ngIf="institucion.invalid && (institucion.dirty || institucion.touched)" class="alert alert-danger">
                         <div *ngIf="institucion.errors.required">

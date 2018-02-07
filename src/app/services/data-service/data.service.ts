@@ -1,98 +1,10 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class DataService {
-
-  private dependencias = [
-    {
-      'id': 1,
-      'valor': 'Rectoría'
-    },
-    {
-      'id': 2,
-      'valor': 'Secretaría general - Comisiones de estudio'
-    },
-    {
-      'id': 3,
-      'valor': 'Vicerrectoría académica'
-    }
-  ];
-
-  private instituciones = [
-    {
-      'id': 1,
-      'valor': 'IES 1'
-    },
-    {
-      'id': 2,
-      'valor': 'IES 2'
-    },
-    {
-      'id': 3,
-      'valor': 'IES 3'
-    }
-  ]
-
-  private paises = [
-    {
-      'id': 1,
-      'valor': 'Colombia'
-    },
-    {
-      'id': 2,
-      'valor': 'Perú'
-    },
-    {
-      'id': 3,
-      'valor': 'México'
-    }
-  ];
-
-  private convenios = [
-    {
-      'id': 1,
-      'valor': 'Convenio'
-    },
-    {
-      'id': 2,
-      'valor': 'Red'
-    },
-    {
-      'id': 3,
-      'valor': 'Asociación'
-    }
-  ];
-
-  private categorias_movilidad = [
-    {
-      'id': 1,
-      'valor': 'Invitado Nacional'
-    },
-    {
-      'id': 2,
-      'valor': 'Invitado Internacional'
-    },
-    {
-      'id': 3,
-      'valor': 'Docente Visitante'
-    },
-    {
-      'id': 4,
-      'valor': 'Docente Experto'
-    },
-    {
-      'id': 5,
-      'valor': 'Actividades Académicas en el marco de becas o convocatorias'
-    },
-    {
-      'id': 6,
-      'valor': 'Residencia artística'
-    },
-    {
-      'id': 7,
-      'valor': 'Par académico'
-    }
-  ];
 
   /*
   private categorias_movilidad_docentes_salientes = [
@@ -206,36 +118,45 @@ export class DataService {
   ];
   */
 
-  constructor() { }
+  private oas_service_url = 'http://localhost:8080/v1/';
+  private reporte_movilidad_url = 'http://localhost:8081/v1/';
+
+  constructor(
+    private http: HttpClient
+  ) { }
 
   // retorna las dependencias
-  getDependencias(): any {
-    return new Promise( (resolve, reject) => {
-      resolve(this.dependencias);
-    });
+  getDependencias(): Observable<any> {
+    return this.http.get(`${this.oas_service_url}dependencia`)
+      .map( res => {
+        return res;
+      });
   }
 
   // retorna las intituciones
-  getInstituciones(): any {
-    return new Promise( (resolve, reject) => {
-      resolve(this.instituciones);
-    });
+  getInstituciones(): Observable<any> {
+    return this.http.get(`${this.oas_service_url}institucion`)
+      .map( res => {
+        return res;
+      });
   }
 
   // retorna los paises
-  getPaises(): any {
-    return new Promise( (resolve, reject) => {
-      resolve(this.paises);
-    });
+  getPaises(): Observable<any> {
+    return this.http.get(`${this.oas_service_url}pais`)
+      .map( res => {
+        return res;
+      });
   }
 
   // retorna los convenios
-  getConvenios(): any {
-    return new Promise( (resolve, reject) => {
-      resolve(this.convenios);
-    })
+  getConvenios(): Observable<any> {
+    return this.http.get(`${this.reporte_movilidad_url}convenio`)
+      .map( res => {
+        return res;
+      });
   }
-
+  /*
   // agrega convenios
   insertConvenio(convenio: any): any {
     return new Promise( (resolve, reject) => {
@@ -251,14 +172,15 @@ export class DataService {
       resolve();
     })
   }
-
+  */
   // retorna las categorias de movilidad
-  getCategoriasMovilidad(): any {
-    return new Promise( (resolve, reject) => {
-      resolve(this.categorias_movilidad);
-    });
+  getCategoriasMovilidad(): Observable<any> {
+    return this.http.get(`${this.reporte_movilidad_url}categoria_movilidad`)
+      .map( res => {
+        return res;
+      });
   }
-
+  /*
   // agrega una categoria de movilidad
   insertCategoriaMovilidad(categoria: any): any {
     return new Promise( (resolve, reject) => {
@@ -273,6 +195,6 @@ export class DataService {
       this.categorias_movilidad.splice(id, 1);
       resolve();
     })
-  }
+  }*/
 
 }

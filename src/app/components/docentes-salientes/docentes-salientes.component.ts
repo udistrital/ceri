@@ -59,17 +59,17 @@ export class DocentesSalientesComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.dataService.getInstituciones().then((data) => {
+        this.dataService.getInstituciones().subscribe( (data) => {
             this.instituciones = data;
         }, (error) => {
             console.log('error', error);
         });
-        this.dataService.getPaises().then((data) => {
+        this.dataService.getPaises().subscribe( (data) => {
             this.paises = data;
         }, (error) => {
             console.log('error', error);
         });
-        this.dataService.getCategoriasMovilidad().then((data) => {
+        this.dataService.getCategoriasMovilidad().subscribe( (data) => {
             this.categorias_movilidad = data;
         }, (error) => {
             console.log('error', error);

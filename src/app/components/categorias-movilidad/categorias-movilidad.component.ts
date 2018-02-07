@@ -27,7 +27,7 @@ export class CategoriasMovilidadComponent implements OnInit {
 
   // obtiene las categorias de movilidad
   getCategorias(): void {
-    this.dataService.getCategoriasMovilidad().then((data) => {
+    this.dataService.getCategoriasMovilidad().subscribe( (data) => {
       this.categorias_movilidad = data;
     }, (error) => {
         console.log('no se pudieron obtener las categorias', error);
