@@ -69,7 +69,9 @@ export class DocentesSalientesComponent implements OnInit {
         }, (error) => {
             console.log('error', error);
         });
-        this.dataService.getCategoriasMovilidad().subscribe( (data) => {
+
+        const query = '?query=disponible:true&sortby=Nombre&order=asc';
+        this.dataService.getCategoriasMovilidad(query).subscribe( (data) => {
             this.categorias_movilidad = data;
         }, (error) => {
             console.log('error', error);
