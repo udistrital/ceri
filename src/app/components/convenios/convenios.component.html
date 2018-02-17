@@ -27,28 +27,68 @@
       </div>
     </form>
 
-    <div *ngFor="let convenio of convenios; let i = index">
-      <div class="col-md-9">
-        <p>{{ convenio.Nombre }}</p>
-      </div>
-      <div class="col-md-3">
-        <button type="button" class="btn btn-sm btn-danger" (click)="eliminarConvenio(i)" data-toggle="modal" data-target="#modalConfirmacion">Eliminar</button>
-      </div>
+    <div class="col-md-12 table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Nombre Convenio</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let convenio of convenios">
+            <td>{{ convenio.Nombre }}</td>
+            <td>
+              <button type="button" class="btn btn-info btn-sm" (click)="seleccionarConvenio('editar',convenio)" title="Editar" data-toggle="modal" data-target="#modalEdicion">
+                <span class="glyphicon glyphicon-pencil"></span>
+              </button>
+              <button type="button" class="btn btn-danger btn-sm" (click)="seleccionarConvenio('eliminar',convenio)" title="Eliminar" data-toggle="modal" data-target="#modalEliminacion">
+                <span class="glyphicon glyphicon-trash"></span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
   </div>
 
 </div>
 
-<!-- Modal -->
-<div id="modalConfirmacion" class="modal fade" role="dialog">
+<!-- Edit Modal -->
+<div id="modalEdicion" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
   <!-- Modal content-->
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <h4 class="modal-title">¿Esta deguro de eliminar el convenio?</h4>
+      <h4 class="modal-title">Ingrese el nuevo nombre del convenio</h4> 
+    </div>
+    <div class="modal-body">
+      <div class="input-group">
+        <span class="input-group-addon">Nombre</span>
+        <input type="text" class="form-control" placeholder="Convenio" [(ngModel)]="nombre_convenio">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="confirmarEdicion()" [disabled]="nombre_convenio === ''" data-dismiss="modal">Confirmar</button>
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+    </div>
+  </div>
+
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div id="modalEliminacion" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">¿Esta seguro de eliminar el convenio?</h4>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-danger" (click)="confirmarEliminacion()" data-dismiss="modal">Confirmar</button>

@@ -13,9 +13,10 @@ export class ConveniosComponent implements OnInit {
   }
 
   private convenios = [];
+  nombre_convenio = '';
 
-  // almacena el id del convenio a eliminar
-  private id_convenio = null;
+  // almacena el id del convenio a eliminar o editar
+  private convenio = null;
 
   constructor(
     private dataService: DataService
@@ -27,7 +28,8 @@ export class ConveniosComponent implements OnInit {
 
   // obtiene los convenios
   getConvenios(): void {
-    this.dataService.getConvenios().subscribe( (data) => {
+    const query = '?query=disponible:true&sortby=Nombre&order=asc';
+    this.dataService.getConvenios(query).subscribe( (data) => {
       this.convenios = data;
     }, (error) => {
         console.log('no se pudieron obtener los convenios', error);
@@ -37,28 +39,52 @@ export class ConveniosComponent implements OnInit {
   // inserta un convenio nueva
   agregarConvenio(): void {
     const convenio = {
-      'id': this.convenios.length + 1,
-      'valor': this.nuevo_convenio.nombre
+      'Id': 0,
+      'Nombre': this.nuevo_convenio.nombre,
+      'Disponible': true
     }
-    this.dataService.insertConvenio(convenio).then( () => {
-      this.nuevo_convenio.nombre = '';
-    }, (error) => {
-      alert('No se pudo insertar');
-    });
+    this.dataService.insertConvenio(convenio).subscribe( (data) => {
+        this.convenios.push(data);
+      }, (error) => {
+          console.log('no se pudo insertar el convenio', error);
+      });
   }
 
-  // guarda el convenio a eliminar
-  eliminarConvenio(id: number): void {
-    this.id_convenio = id;
+  // guarda el convenio a eliminar o editar
+  seleccionarConvenio(option: string, convenio: any): void {
+    if (option === 'editar') {
+      this.nombre_convenio = convenio.Nombre;
+    }
+    this.convenio = convenio;
+  }
+
+  // edita el convenio
+  confirmarEdicion(): void {
+    const convenio = {
+      'Disponible': true,
+      'Id': this.convenio.Id,
+      'Nombre': this.nombre_convenio
+    }
+    this.dataService.editConvenio(this.convenio.Id, convenio).subscribe( (data) => {
+        this.nombre_convenio = '';
+        this.getConvenios();
+      }, (error) => {
+          console.log('no se pudo editar el convenio', error);
+      });
   }
 
   // elimina el convenio
   confirmarEliminacion(): void {
-    this.dataService.deleteConvenio(this.id_convenio).then( () => {
-      alert('Convenio eliminado');
-    }, (error) => {
-      alert('No se pudo eliminar')
-    })
+    const convenio = {
+      'Disponible': false,
+      'Id': this.convenio.Id,
+      'Nombre': this.convenio.Nombre
+    }
+    this.dataService.editConvenio(this.convenio.Id, convenio).subscribe( (data) => {
+        this.getConvenios();
+      }, (error) => {
+          console.log('no se pudo insertar el convenio', error);
+      });
   }
 
 }
