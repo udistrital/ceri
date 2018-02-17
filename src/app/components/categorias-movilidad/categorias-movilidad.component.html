@@ -14,7 +14,6 @@
     <hr class="my-4">
     <br>
 
-    <!--Formulario para buscar los datos de un docente-->
     <form class="form-horizontal" #agregarCategoriaForm="ngForm">
       <div class="form-group">
         <label class="control-label col-md-2" for="categoria">Nombre de la categoría:</label>
@@ -27,28 +26,68 @@
       </div>
     </form>
 
-    <div *ngFor="let categoria of categorias_movilidad; let i = index">
-      <div class="col-md-9">
-        <p>{{ categoria.Nombre }}</p>
-      </div>
-      <div class="col-md-3">
-        <button type="button" class="btn btn-sm btn-danger" (click)="eliminarCategoria(i)" data-toggle="modal" data-target="#modalConfirmacion">Eliminar</button>
-      </div>
+    <div class="col-md-12 table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Nombre Categoría</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let categoria of categorias_movilidad">
+            <td>{{ categoria.Nombre }}</td>
+            <td>
+              <button type="button" class="btn btn-info btn-sm" (click)="seleccionarCategoria('editar',categoria)" title="Editar" data-toggle="modal" data-target="#modalEdicion">
+                <span class="glyphicon glyphicon-pencil"></span>
+              </button>
+              <button type="button" class="btn btn-danger btn-sm" (click)="seleccionarCategoria('eliminar',categoria)" title="Eliminar" data-toggle="modal" data-target="#modalEliminacion">
+                <span class="glyphicon glyphicon-trash"></span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
   </div>
 
 </div>
 
-<!-- Modal -->
-<div id="modalConfirmacion" class="modal fade" role="dialog">
+<!-- Edit Modal -->
+<div id="modalEdicion" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
   <!-- Modal content-->
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <h4 class="modal-title">¿Esta deguro de eliminar la categoría de movilidad?</h4>
+      <h4 class="modal-title">Ingrese el nuevo nombre de la categoría</h4> 
+    </div>
+    <div class="modal-body">
+      <div class="input-group">
+        <span class="input-group-addon">Nombre</span>
+        <input type="text" class="form-control" placeholder="Categoría" [(ngModel)]="nombre_categoria">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="confirmarEdicion()" [disabled]="nombre_categoria === ''" data-dismiss="modal">Confirmar</button>
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+    </div>
+  </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="modalEliminacion" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">¿Esta seguro de eliminar la categoría de movilidad?</h4>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-danger" (click)="confirmarEliminacion()" data-dismiss="modal">Confirmar</button>

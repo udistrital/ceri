@@ -44,10 +44,10 @@ export class ConveniosComponent implements OnInit {
       'Disponible': true
     }
     this.dataService.insertConvenio(convenio).subscribe( (data) => {
-        this.convenios.push(data);
-      }, (error) => {
-          console.log('no se pudo insertar el convenio', error);
-      });
+      this.getConvenios();
+    }, (error) => {
+        console.log('no se pudo insertar el convenio', error);
+    });
   }
 
   // guarda el convenio a eliminar o editar
@@ -66,11 +66,11 @@ export class ConveniosComponent implements OnInit {
       'Nombre': this.nombre_convenio
     }
     this.dataService.editConvenio(this.convenio.Id, convenio).subscribe( (data) => {
-        this.nombre_convenio = '';
-        this.getConvenios();
-      }, (error) => {
-          console.log('no se pudo editar el convenio', error);
-      });
+      this.nombre_convenio = '';
+      this.getConvenios();
+    }, (error) => {
+        console.log('no se pudo editar el convenio', error);
+    });
   }
 
   // elimina el convenio
@@ -81,10 +81,10 @@ export class ConveniosComponent implements OnInit {
       'Nombre': this.convenio.Nombre
     }
     this.dataService.editConvenio(this.convenio.Id, convenio).subscribe( (data) => {
-        this.getConvenios();
-      }, (error) => {
-          console.log('no se pudo insertar el convenio', error);
-      });
+      this.getConvenios();
+    }, (error) => {
+        console.log('no se pudo insertar el convenio', error);
+    });
   }
 
 }

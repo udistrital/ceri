@@ -13,9 +13,10 @@ export class CategoriasMovilidadComponent implements OnInit {
   }
 
   private categorias_movilidad = [];
+  nombre_categoria = '';
 
   // almacena el id de la categoria a eliminar
-  private id_categoria = null;
+  private categoria = null;
 
   constructor(
     private dataService: DataService
@@ -27,7 +28,8 @@ export class CategoriasMovilidadComponent implements OnInit {
 
   // obtiene las categorias de movilidad
   getCategorias(): void {
-    this.dataService.getCategoriasMovilidad().subscribe( (data) => {
+    const query = '?query=disponible:true&sortby=Nombre&order=asc';
+    this.dataService.getCategoriasMovilidad(query).subscribe( (data) => {
       this.categorias_movilidad = data;
     }, (error) => {
         console.log('no se pudieron obtener las categorias', error);
@@ -37,28 +39,52 @@ export class CategoriasMovilidadComponent implements OnInit {
   // inserta una categoria nueva
   agregarCategoria(): void {
     const categoria = {
-      'id': this.categorias_movilidad.length + 1,
-      'valor': this.nueva_categoria.nombre
+      'Id': 0,
+      'Nombre': this.nueva_categoria.nombre,
+      'Disponible': true
     }
-    this.dataService.insertCategoriaMovilidad(categoria).then( () => {
-      this.nueva_categoria.nombre = '';
+    this.dataService.insertCategoriaMovilidad(categoria).subscribe( (data) => {
+      this.getCategorias();
     }, (error) => {
-      alert('No se pudo insertar');
+        console.log('no se pudo insertar la categoría', error);
     });
   }
 
-  // guarda la categoria a eliminar
-  eliminarCategoria(id: number): void {
-    this.id_categoria = id;
+  // guarda la categoria a eliminar o editar
+  seleccionarCategoria(option: string, categoria: any): void {
+    if (option === 'editar') {
+      this.nombre_categoria = categoria.Nombre;
+    }
+    this.categoria = categoria;
+  }
+
+  // edita el convenio
+  confirmarEdicion(): void {
+    const categoria = {
+      'Disponible': true,
+      'Id': this.categoria.Id,
+      'Nombre': this.nombre_categoria
+    }
+    this.dataService.editCategoriaMovilidad(this.categoria.Id, categoria).subscribe( (data) => {
+      this.nombre_categoria = '';
+      this.getCategorias();
+    }, (error) => {
+        console.log('no se pudo editar el convenio', error);
+    });
   }
 
   // elimina la categoria
   confirmarEliminacion(): void {
-    this.dataService.deleteCategoriaMovilidad(this.id_categoria).then( () => {
-      alert('Categoría eliminada');
+    const categoria = {
+      'Disponible': false,
+      'Id': this.categoria.Id,
+      'Nombre': this.categoria.Nombre
+    }
+    this.dataService.editCategoriaMovilidad(this.categoria.Id, categoria).subscribe( (data) => {
+      this.getCategorias();
     }, (error) => {
-      alert('No se pudo eliminar')
-    })
+        console.log('no se pudo insertar el convenio', error);
+    });
   }
 
 }

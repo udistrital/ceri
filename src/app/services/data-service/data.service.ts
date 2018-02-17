@@ -160,7 +160,6 @@ export class DataService {
   // agrega convenios
   insertConvenio(convenio: any): any {
     const body = JSON.stringify(convenio);
-    console.log('body', body);
 
     return this.http.post(`${this.reporte_movilidad_url}convenio`, body)
       .map(res => {
@@ -171,7 +170,6 @@ export class DataService {
   // edita el convenio
   editConvenio(id: number, convenio: any): any {
     const body = JSON.stringify(convenio);
-    console.log('body', body);
 
     return this.http.put(`${this.reporte_movilidad_url}convenio/${id}`, body)
       .map(res => {
@@ -180,8 +178,8 @@ export class DataService {
   }
 
   // retorna las categorias de movilidad
-  getCategoriasMovilidad(): Observable<any> {
-    return this.http.get(`${this.reporte_movilidad_url}categoria_movilidad`)
+  getCategoriasMovilidad(query = ''): Observable<any> {
+    return this.http.get(`${this.reporte_movilidad_url}categoria_movilidad/${query}`)
       .map( res => {
         return res;
       });
@@ -189,18 +187,22 @@ export class DataService {
 
   // agrega una categoria de movilidad
   insertCategoriaMovilidad(categoria: any): any {
-    return new Promise( (resolve, reject) => {
-      // this.categorias_movilidad.push(categoria);
-      resolve();
-    })
+    const body = JSON.stringify(categoria);
+
+    return this.http.post(`${this.reporte_movilidad_url}categoria_movilidad`, body)
+      .map(res => {
+        return res;
+      });
   }
 
   // elimina la categoria de movilidad
-  deleteCategoriaMovilidad(id: number): any {
-    return new Promise( (resolve, reject) => {
-      // this.categorias_movilidad.splice(id, 1);
-      resolve();
-    })
+  editCategoriaMovilidad(id: number, categoria: any): any {
+    const body = JSON.stringify(categoria);
+
+    return this.http.put(`${this.reporte_movilidad_url}categoria_movilidad/${id}`, body)
+      .map(res => {
+        return res;
+      });
   }
 
 }
