@@ -1,53 +1,32 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class GetUserDataService {
 
-  constructor() { }
+  private oas_service_url = 'http://localhost:8080/v1/';
+  private reporte_movilidad_url = 'http://localhost:8081/v1/';
 
-  // retorna los datos de un estudiante entrante
-  getDataEstudiante(id: number): any {
-    return new Promise( (resolve, reject) => {
-      let data = {};
-      if (id === 123) {
-        data = {
-          'nombres': 'Nicolas',
-          'apellidos': 'Bernal Gutierréz',
-          'clasificacion_programa_academico': 'pregrado',
-          'programa_academico': 'ingeniería de sistemas',
-          'facultad': 'ingeniería',
-          'direccion': 'calle 6 b 80 g 17',
-          'telefono': '3005939218',
-          'pais_procedencia': 'colombia'
-        };
-      } else {
-        data = null;
-      }
+  constructor(
+    private http: HttpClient
+  ) { }
 
-      resolve(data);
-    });
-
+  // retorna los datos de un estudiante
+  getDataEstudiante(query = ''): any {
+    return this.http.get(`${this.oas_service_url}persona/${query}`)
+      .map( res => {
+        return res;
+      });
   }
 
-  // retorna los datos de un docente entrante
-  getDataDocente(id: number): any {
-    return new Promise( (resolve, reject) => {
-      let data = {};
-      if (id === 123) {
-        data = {
-          'nombres': 'Nicolas',
-          'apellidos': 'Bernal Gutierréz',
-          'facultad': 'ingeniería',
-          'direccion': 'calle 6 b 80 g 17',
-          'telefono': '3005939218',
-          'pais_procedencia': 'colombia'
-        };
-      } else {
-        data = null;
-      }
-
-      resolve(data);
-    });
+  // retorna los datos de un docente
+  getDataDocente(query = ''): any {
+    return this.http.get(`${this.oas_service_url}persona/${query}`)
+      .map( res => {
+        return res;
+      });
   }
 
 }

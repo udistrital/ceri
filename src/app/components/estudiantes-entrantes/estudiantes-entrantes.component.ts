@@ -10,7 +10,8 @@ import { DataService } from 'app/services/data-service/data.service';
 export class EstudiantesEntrantesComponent implements OnInit {
 
     numero_identificacion = {
-        'numero': null
+        'numero': null,
+        'ultima_busqueda': null
     };
 
     datos_persona = null;
@@ -88,8 +89,11 @@ export class EstudiantesEntrantesComponent implements OnInit {
 
     // busca el usuario
     search(): void {
-        this.getUserDataService.getDataEstudiante(this.numero_identificacion.numero).then( (data) => {
+        this.numero_identificacion.ultima_busqueda = this.numero_identificacion.numero;
+        const query = `?query=Documento:${this.numero_identificacion.numero}`
+        this.getUserDataService.getDataEstudiante(query).subscribe( (data) => {
             this.datos_persona = data;
+            this.numero_identificacion.numero = '';
         }, (error) => {
             console.log('error', error);
         });
