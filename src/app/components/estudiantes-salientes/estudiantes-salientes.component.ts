@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { GetUserDataService } from 'app/services/get-user-data/get-user-data.service';
 import { DataService } from 'app/services/data-service/data.service';
 
+declare var $: any;
+
 @Component({
     moduleId: module.id,
     selector: 'app-estudiantes-salientes',
@@ -17,44 +19,48 @@ export class EstudiantesSalientesComponent implements OnInit {
     datos_persona = null;
 
     datos_movilidad = {
-        'tipo_movilidad': 'nacional',
-        'fecha_inicio': '',
-        'fecha_fin': '',
-        'periodo_estancia': '',
-        'categoria_movilidad': '',
-        'pais_destino': '',
-        'convenio': '',
-        'institucion': '',
-        'presupuesto': [],
-        'nombre_acto_administrativo': '',
-        'enlace_acto_administrativo': ''
+        'AreaConocimiento': '', // otro component
+        'CategoriaMovilidad': null,
+        'ClasificacionDuracion': {},
+        'ClasificacionMovilidad': {},
+        'ConceptoParticipacion': '',
+        'Convenio': null,
+        'Dependencia': null, // otro component
+        'EnlaceActoAdministrativo': '',
+        'FechaFin': '',
+        'FechaInicio': '',
+        'Id': 0,
+        'Institucion': null,
+        'NombreActoAdministrativo': '',
+        'Pais': null,
+        'Persona': '',
+        'TipoMovilidad': {},
+        'TipoPersona': {}
     };
+
+    presupuestos = [];
 
     // por servicio
     instituciones = [];
     paises = [];
     categorias_movilidad = [];
     convenios = [];
-
-    tipos_presupuesto = [
-        {
-            'nombre': 'Apoyo económico por parte de la institución',
-            'campo': 'presupuesto'
-        },
-        {
-            'nombre': 'Recursos propios',
-            'campo': 'descripcion'
-        },
-        {
-            'nombre': 'Beca externa',
-            'campo': 'descripcion'
-        }
-    ];
+    clasificacion_movilidad: any = [];
+    tipos_presupuesto: any = [];
+    tipos_movilidad: any = [];
+    tipos_persona: any = [];
+    clasificacion_duracion: any = [];
 
     presupuesto_seleccionado = {
-        'tipo': null,
-        'descripcion': null
+        'TipoPresupuesto': null,
+        'Descripcion': null,
+        'Movilidad': null,
+        'Id': 0
     };
+
+    mensaje_confirmacion = '';
+    nueva_busqueda = false;
+    tipo_movilidad = 'saliente';
 
     constructor(
         private getUserDataService: GetUserDataService,
@@ -85,6 +91,31 @@ export class EstudiantesSalientesComponent implements OnInit {
         }, (error) => {
             console.log('error', error);
         });
+        this.dataService.getClasificacionMovilidad().subscribe( (data) => {
+            this.clasificacion_movilidad = data;
+        }, (error) => {
+            console.log('error', error);
+        });
+        this.dataService.getTiposPresupuesto().subscribe( (data) => {
+            this.tipos_presupuesto = data;
+        }, (error) => {
+            console.log('error', error);
+        });
+        this.dataService.getTiposMovilidad().subscribe( (data) => {
+            this.tipos_movilidad = data;
+        }, (error) => {
+            console.log('error', error);
+        });
+        this.dataService.getTiposPersona().subscribe( (data) => {
+            this.tipos_persona = data;
+        }, (error) => {
+            console.log('error', error);
+        });
+        this.dataService.getClasificacionDuracion().subscribe( (data) => {
+            this.clasificacion_duracion = data;
+        }, (error) => {
+            console.log('error', error);
+        });
     }
 
     // busca el usuario
@@ -93,7 +124,9 @@ export class EstudiantesSalientesComponent implements OnInit {
         const query = `?query=Documento:${this.numero_identificacion.numero}`
         this.getUserDataService.getDataEstudiante(query).subscribe( (data) => {
             this.datos_persona = data;
+            console.log('persona', this.datos_persona);
             this.numero_identificacion.numero = '';
+            this.nueva_busqueda = true;
         }, (error) => {
             console.log('error', error);
         });
@@ -101,34 +134,162 @@ export class EstudiantesSalientesComponent implements OnInit {
 
     // agrega un presupuesto
     agregarPresupuesto(): void {
-        this.datos_movilidad.presupuesto.push(this.presupuesto_seleccionado);
+        this.presupuesto_seleccionado['TipoPresupuesto'] = this.tipos_presupuesto[this.tipos_presupuesto.findIndex(
+            presupuesto => presupuesto.Id === this.presupuesto_seleccionado.TipoPresupuesto
+        )];
+        this.presupuestos.push(this.presupuesto_seleccionado);
         this.presupuesto_seleccionado = {
-            'tipo': null,
-            'descripcion': null
+            'TipoPresupuesto': null,
+            'Descripcion': null,
+            'Movilidad': null,
+            'Id': 0
         };
     }
 
     // eliminar presupuesto
     eliminarPresupuesto(index: number): void {
-        this.datos_movilidad.presupuesto.splice(index, 1);
+        this.presupuestos.splice(index, 1);
     }
 
     // calcula la duración de la estancia
-    calcularDuracionEstancia(): void {
-        if (this.datos_movilidad.fecha_inicio !== '' && this.datos_movilidad.fecha_fin !== '') {
-            const fecha_inicio = this.datos_movilidad.fecha_inicio.split('-');
-            const fecha_fin = this.datos_movilidad.fecha_fin.split('-');
+    calcularDuracionEstancia(inicio = false): void {
+        if (inicio) {
+            this.datos_movilidad.FechaFin = '';
+        }
+
+        if (this.datos_movilidad.FechaInicio !== '' && this.datos_movilidad.FechaFin !== '') {
+            const fecha_inicio = this.datos_movilidad.FechaInicio.split('-');
+            const fecha_fin = this.datos_movilidad.FechaFin.split('-');
             let duracion = (parseInt(fecha_fin[0], 10) - parseInt(fecha_inicio[0], 10)) * 12;
             duracion -= parseInt(fecha_inicio[1], 10);
             duracion += parseInt(fecha_fin[1], 10);
             if (duracion <= 2) {
-                this.datos_movilidad.periodo_estancia = 'corta';
+                this.datos_movilidad.ClasificacionDuracion = this.clasificacion_duracion[this.clasificacion_duracion.findIndex(
+                    clasificacion => clasificacion.Nombre === 'corta'
+                )];
             } else if (duracion <= 12) {
-                this.datos_movilidad.periodo_estancia = 'mediana';
+                this.datos_movilidad.ClasificacionDuracion = this.clasificacion_duracion[this.clasificacion_duracion.findIndex(
+                    clasificacion => clasificacion.Nombre === 'mediana'
+                )];
             } else {
-                this.datos_movilidad.periodo_estancia = 'larga';
+                this.datos_movilidad.ClasificacionDuracion = this.clasificacion_duracion[this.clasificacion_duracion.findIndex(
+                    clasificacion => clasificacion.Nombre === 'larga'
+                )];
             }
         }
+    }
+
+    calcularTipoMovilidad(): void {
+        let id_pais = 0;
+        if (this.tipo_movilidad === 'saliente') {
+            const index = this.paises.findIndex( pais => pais.Nombre === 'Colombia');
+            if (index >= 0) {
+                id_pais = this.paises[index].Id;
+            }
+        } else {
+            const index = this.paises.findIndex( pais => pais.Nombre === this.datos_persona[0].PaisProcedencia);
+            if (index >= 0) {
+                id_pais = this.paises[index].Id;
+            }
+        }
+        if (parseInt(this.datos_movilidad.Pais, 10) === id_pais) {
+            this.datos_movilidad.TipoMovilidad = this.tipos_movilidad[this.tipos_movilidad.findIndex(
+                tipo => tipo.Nombre === 'nacional'
+            )];
+        } else {
+            this.datos_movilidad.TipoMovilidad = this.tipos_movilidad[this.tipos_movilidad.findIndex(
+                tipo => tipo.Nombre === 'internacional'
+            )];
+        }
+    }
+
+    guardarMovilidad(): void {
+
+       this.guardarDatosMovilidad().then( (data) => {
+            const promises = [];
+            for (const presupuesto of this.presupuestos) {
+                presupuesto['Movilidad'] = data;
+                promises.push(this.guardarPresupuesto(presupuesto));
+            }
+            return Promise.all(promises);
+       }).then( (data) => {
+            this.mensaje_confirmacion = 'Se ha registrado la movilidad exitosamente';
+            $('#modalConfirmacion').modal({ backdrop: 'static', keyboard: false });
+            this.clearData();
+       })
+       .catch( (error) => {
+           console.log(error);
+           this.mensaje_confirmacion = 'No se ha podido registrar la movilidad intentelo nuevamente';
+           $('#modalConfirmacion').modal({ backdrop: 'static', keyboard: false });
+       })
+
+    }
+
+    guardarDatosMovilidad(): Promise<any> {
+        return new Promise( (resolve, reject) => {
+            this.datos_movilidad.ClasificacionMovilidad = this.clasificacion_movilidad[this.clasificacion_movilidad.findIndex(
+                movilidad => movilidad.Nombre === 'saliente'
+            )];
+
+            this.datos_movilidad.Persona = this.datos_persona[0].Id;
+
+            this.datos_movilidad.TipoPersona = this.tipos_persona[this.tipos_persona.findIndex(
+                tipo => tipo.Nombre === 'estudiante'
+            )];
+
+            this.datos_movilidad.Institucion = parseInt(this.datos_movilidad.Institucion, 10);
+            this.datos_movilidad.Pais = parseInt(this.datos_movilidad.Pais, 10);
+            console.log('datos movilidad', this.datos_movilidad);
+
+            this.dataService.insertMovilidad(this.datos_movilidad).subscribe( (data) => {
+                resolve(data);
+              }, (error) => {
+                  reject('no se pudo insertar los datos de movilidad ' + error);
+              });
+        });
+    }
+
+    guardarPresupuesto(presupuesto: any): Promise<any> {
+        return new Promise( (resolve, reject) => {
+            this.dataService.insertPresupuesto(presupuesto).subscribe( (data) => {
+                resolve(data);
+            }, (error) => {
+                reject('no se pudo insertar el presupuesto ' + error);
+            });
+        });
+    }
+
+    clearData(): void {
+        this.numero_identificacion = {
+            'numero': null,
+            'ultima_busqueda': null
+        };
+
+        this.datos_persona = null;
+
+        this.datos_movilidad = {
+            'AreaConocimiento': '', // otro component
+            'CategoriaMovilidad': null,
+            'ClasificacionDuracion': {},
+            'ClasificacionMovilidad': {},
+            'ConceptoParticipacion': '',
+            'Convenio': null,
+            'Dependencia': null, // otro component
+            'EnlaceActoAdministrativo': '',
+            'FechaFin': '',
+            'FechaInicio': '',
+            'Id': 0,
+            'Institucion': null,
+            'NombreActoAdministrativo': '',
+            'Pais': null,
+            'Persona': '',
+            'TipoMovilidad': {},
+            'TipoPersona': {}
+        };
+
+        this.presupuestos = [];
+
+        this.nueva_busqueda = false;
     }
 
 }

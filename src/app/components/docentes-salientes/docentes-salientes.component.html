@@ -64,7 +64,7 @@
 
         </form>
 
-        <div *ngIf="!datos_persona && identificacion.touched " class="alert alert-danger col-md-12">
+        <div *ngIf="!datos_persona && identificacion.touched && nueva_busqueda" class="alert alert-danger col-md-12">
             <span class="glyphicon glyphicon-warning"></span> No se encontro ningún docente con el número de identificación {{ numero_identificacion.ultima_busqueda }}
         </div>
 
@@ -76,7 +76,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="pais_destino">País de destino:</label>
                 <div class="col-sm-10">
-                    <select class="form-control" name="pais_destino" id="pais_destino" [(ngModel)]="datos_movilidad.pais_destino" #pais_destino="ngModel" required>
+                    <select class="form-control" name="pais_destino" id="pais_destino" [(ngModel)]="datos_movilidad.Pais" (ngModelChange)="calcularTipoMovilidad()" #pais_destino="ngModel" required>
                         <option *ngFor="let pais of paises" [value]="pais.Id">{{ pais.Nombre }}</option>
                     </select>
                 </div>
@@ -85,32 +85,29 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="tipo_movilidad">Tipo de movilidad:</label>
                 <div class="col-sm-10">
-                    <select class="form-control" name="tipo_movilidad" id="tipo_movilidad" [(ngModel)]="datos_movilidad.tipo_movilidad" #tipo_movilidad="ngModel" required disabled>
-                        <option value="nacional">Nacional</option>
-                        <option value="internacional">Internacional</option>
-                    </select>
+                    <input type="text" class="form-control" id="tipo_movilidad" name="tipo_movilidad" [(ngModel)]="datos_movilidad.TipoMovilidad.Nombre" #tipo_movilidad="ngModel" readonly>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="fecha_inicio">Fecha de inicio:</label>
                 <div class="col-sm-4">
-                    <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" [(ngModel)]='datos_movilidad.fecha_inicio' (change)="calcularDuracionEstancia()" #fecha_inicio="ngModel" required>
+                    <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" [(ngModel)]='datos_movilidad.FechaInicio' (change)="calcularDuracionEstancia(true)" #fecha_inicio="ngModel" required>
                 </div>
                 <label class="control-label col-sm-2" for="fecha_fin">Fecha de finalización:</label>
                 <div class="col-sm-4">
-                    <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" [(ngModel)]='datos_movilidad.fecha_fin' (change)="calcularDuracionEstancia()" #fecha_fin="ngModel" required>
+                    <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" [disabled]="datos_movilidad.FechaInicio == ''" [min]="datos_movilidad.FechaInicio" [(ngModel)]='datos_movilidad.FechaFin' (change)="calcularDuracionEstancia()" #fecha_fin="ngModel" required>
                 </div>
             </div>
-            <div *ngIf="datos_movilidad.fecha_inicio != '' && datos_movilidad.fecha_fin != ''" class="alert alert-success col-md-12 text-center">
-                Clasificación por duración de la estancia: {{ datos_movilidad.periodo_estancia }} estancia 
+            <div *ngIf="datos_movilidad.FechaInicio != '' && datos_movilidad.FechaFin != ''" class="alert alert-success col-md-12 text-center"> 
+                Clasificación por duración de la estancia: {{ this.datos_movilidad.ClasificacionDuracion.Nombre }} estancia 
             </div>
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="categoria_movilidad">Categoria de la movilidad: </label>
                 <div class="col-sm-10">
-                    <select class="form-control" name="categoria_movilidad" id="categoria_movilidad" [(ngModel)]="datos_movilidad.categoria_movilidad" #categoria_movilidad="ngModel" required>
-                        <option *ngFor="let categoria of categorias_movilidad" [value]="categoria.Id">{{ categoria.Nombre }}</option>
+                    <select class="form-control" name="categoria_movilidad" id="categoria_movilidad" [(ngModel)]="datos_movilidad.CategoriaMovilidad" #categoria_movilidad="ngModel" required>
+                        <option *ngFor="let categoria of categorias_movilidad" [ngValue]="categoria">{{ categoria.Nombre }}</option>
                     </select>
                 </div>
             </div>
@@ -118,7 +115,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="institucion">Nombre de la IES, Institución o Empresa de destino:</label>
                 <div class="col-sm-10">
-                    <select class="form-control" name="institucion" id="institucion" [(ngModel)]="datos_movilidad.institucion" #institucion="ngModel" required>
+                    <select class="form-control" name="institucion" id="institucion" [(ngModel)]="datos_movilidad.Institucion" #institucion="ngModel" required>
                         <option *ngFor="let institucion of instituciones" [value]="institucion.Id">{{ institucion.Nombre }}</option>
                     </select>
                     <div *ngIf="institucion.invalid && (institucion.dirty || institucion.touched)" class="alert alert-danger">
@@ -135,28 +132,28 @@
                     <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#modalPresupuesto">Agregar</button>
                 </div>
             </div>
-            <div *ngFor="let presupuesto of datos_movilidad.presupuesto; let i = index" class="alert alert-success col-md-12 text-center">
+            <div *ngFor="let presupuesto of presupuestos; let i = index" class="alert alert-success col-md-12 text-center">
                 <div class="close" (click)="eliminarPresupuesto(i)">&times;</div>
-                {{ presupuesto.tipo }} - {{ presupuesto.descripcion }}
+                {{ presupuesto.TipoPresupuesto.Nombre }} - {{ presupuesto.Descripcion }}
             </div>
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="nombre_acto_administrativo">Nombre acto administrativo:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="nombre_acto_administrativo" name="nombre_acto_administrativo" placeholder="Nombre del acto administrativo" [(ngModel)]="datos_movilidad.nombre_acto_administrativo" #nombre_acto_administrativo="ngModel" required>
+                    <input type="text" class="form-control" id="nombre_acto_administrativo" name="nombre_acto_administrativo" placeholder="Nombre del acto administrativo" [(ngModel)]="datos_movilidad.NombreActoAdministrativo" #nombre_acto_administrativo="ngModel" required>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="enlace_acto_administrativo">Enlace acto administrativo: </label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="enlace_acto_administrativo" name="enlace_acto_administrativo" placeholder="Enlace del acto administrativo" [(ngModel)]="datos_movilidad.enlace_acto_administrativo" #enlace_acto_administrativo="ngModel" required>
+                    <input type="text" class="form-control" id="enlace_acto_administrativo" name="enlace_acto_administrativo" placeholder="Enlace del acto administrativo" [(ngModel)]="datos_movilidad.EnlaceActoAdministrativo" #enlace_acto_administrativo="ngModel" required>
                 </div>
             </div>
 
             <div class="form-group text-center">
                 <div class="col-sm-12">
-                    <button type="submit" class="btn btn-lg btn-success" [disabled]="!datosMovilidadForm.valid">Envíar</button>
+                    <button type="button" class="btn btn-lg btn-success" [disabled]="!datosMovilidadForm.valid || presupuestos.length == 0" (click)="guardarMovilidad()">Envíar</button>
                 </div>
             </div>
 
@@ -164,7 +161,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Presupuesto Modal -->
 <div id="modalPresupuesto" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
@@ -177,16 +174,36 @@
         <div class="modal-body">
             <div class="radio" *ngFor="let tipo_presupuesto of tipos_presupuesto">
                 <label  class="radio-inline">
-                    <input type="radio" name="tipo_presupuesto" ng-control="tipo_presupuesto" [value]="tipo_presupuesto.nombre" [(ngModel)]="presupuesto_seleccionado.tipo">
-                    {{ tipo_presupuesto.nombre }}
+                    <input type="radio" name="tipo_presupuesto" ng-control="tipo_presupuesto" [value]="tipo_presupuesto.Id" [(ngModel)]="presupuesto_seleccionado.TipoPresupuesto">
+                    {{ tipo_presupuesto.Nombre }}
                 </label>
             </div>
-            <input type="text" class="form-control" id="descripcion_presupuesto" name="descripcion_presupuesto" placeholder="Presupuesto o descripción" [(ngModel)]="presupuesto_seleccionado.descripcion">
+            <input type="text" class="form-control" id="descripcion_presupuesto" name="descripcion_presupuesto" placeholder="Presupuesto o descripción" [(ngModel)]="presupuesto_seleccionado.Descripcion">
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-success" [disabled]="!presupuesto_seleccionado.tipo" (click)="agregarPresupuesto()">Agregar</button>
+            <button type="button" class="btn btn-success" [disabled]="!presupuesto_seleccionado.TipoPresupuesto" (click)="agregarPresupuesto()">Agregar</button>
         </div>
     </div>
 
   </div>
 </div>
+
+<!-- Confirmación Modal -->
+<div id="modalConfirmacion" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header">
+                <h4 class="modal-title">Aviso</h4>
+          </div>
+          <div class="modal-body">
+                <p>{{ mensaje_confirmacion }}</p>
+          </div>
+          <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Entendido</button>
+          </div>
+      </div>
+  
+    </div>
+  </div>

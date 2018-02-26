@@ -125,6 +125,8 @@ export class DataService {
     private http: HttpClient
   ) { }
 
+  /* OAS SERVICE */
+
   // retorna las dependencias
   getDependencias(): Observable<any> {
     return this.http.get(`${this.oas_service_url}dependencia`)
@@ -148,6 +150,8 @@ export class DataService {
         return res;
       });
   }
+
+  /* REPORTE MOVILIDAD SERVICE */
 
   // retorna los convenios
   getConvenios(query = ''): Observable<any> {
@@ -203,6 +207,60 @@ export class DataService {
       .map(res => {
         return res;
       });
+  }
+
+  getClasificacionMovilidad() {
+    return this.http.get(`${this.reporte_movilidad_url}clasificacion_movilidad`)
+      .map( res => {
+        return res;
+      });
+  }
+
+  getTiposPresupuesto() {
+    return this.http.get(`${this.reporte_movilidad_url}tipo_presupuesto`)
+      .map( res => {
+        return res;
+      });
+  }
+
+  getTiposMovilidad() {
+    return this.http.get(`${this.reporte_movilidad_url}tipo_movilidad`)
+      .map( res => {
+        return res;
+      });
+  }
+
+  getTiposPersona() {
+    return this.http.get(`${this.reporte_movilidad_url}tipo_persona`)
+      .map( res => {
+        return res;
+      });
+  }
+
+  getClasificacionDuracion() {
+    return this.http.get(`${this.reporte_movilidad_url}clasificacion_duracion`)
+      .map( res => {
+        return res;
+      });
+  }
+
+  // agrega movilidad
+  insertMovilidad(movilidad: any): any {
+    const body = JSON.stringify(movilidad);
+
+    return this.http.post(`${this.reporte_movilidad_url}movilidad`, body)
+      .map(res => {
+        return res;
+      });
+  }
+
+  insertPresupuesto(presupuesto: any): any {
+    const body = JSON.stringify(presupuesto);
+
+    return this.http.post(`${this.reporte_movilidad_url}presupuesto`, body)
+      .map( res => {
+        return res;
+      })
   }
 
 }
