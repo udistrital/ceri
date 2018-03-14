@@ -1,0 +1,15 @@
+.fondo {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center; 
+    height: 100vh;
+    background-image: url('../../../assets/intercambio.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.login-title {
+    font-size: 100px;
+    color: #FFF;
+}

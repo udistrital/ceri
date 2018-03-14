@@ -4,7 +4,8 @@ import { OAuthService } from 'angular-oauth2-oidc';
 @Component({
     moduleId: module.id,
     selector: 'app-landing',
-    templateUrl: './landing.component.html'
+    templateUrl: './landing.component.html',
+    styleUrls: ['./landing.component.css']
 })
 export class LandingComponent implements OnInit {
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -9,7 +10,8 @@ import { OAuthService } from 'angular-oauth2-oidc';
 export class NavComponent implements OnInit {
 
   constructor(
-    private oauthService: OAuthService
+    private oauthService: OAuthService,
+    public router: Router
   ) { }
 
   ngOnInit() {
@@ -17,6 +19,7 @@ export class NavComponent implements OnInit {
 
   logout() {
     this.oauthService.logOut();
+    this.router.navigate(['/login'])
   }
 
 }
