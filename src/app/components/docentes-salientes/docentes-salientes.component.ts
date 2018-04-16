@@ -118,7 +118,6 @@ export class DocentesSalientesComponent implements OnInit {
         const query = `?query=Documento:${this.numero_identificacion.numero}`
         this.getUserDataService.getDataDocente(query).subscribe( (data) => {
             this.datos_persona = data;
-            console.log('persona', this.datos_persona);
             this.numero_identificacion.numero = '';
             this.nueva_busqueda = true;
         }, (error) => {
@@ -199,7 +198,9 @@ export class DocentesSalientesComponent implements OnInit {
 
     guardarMovilidad(): void {
 
-       this.guardarDatosMovilidad().then( (data) => {
+        this.verificarFechaMovilidad(this.datos_persona[0].Id).then( data => {
+            return this.guardarDatosMovilidad();
+        }).then( (data) => {
             const promises = [];
             for (const presupuesto of this.presupuestos) {
                 presupuesto['Movilidad'] = data;
@@ -212,11 +213,49 @@ export class DocentesSalientesComponent implements OnInit {
             this.clearData();
        })
        .catch( (error) => {
-           console.log(error);
-           this.mensaje_confirmacion = 'No se ha podido registrar la movilidad intentelo nuevamente';
-           $('#modalConfirmacion').modal({ backdrop: 'static', keyboard: false });
+            if (error === 'date') {
+                this.mensaje_confirmacion = 'Ya existe una movilidad registrada en el mismo periodo de tiempo';
+                $('#modalConfirmacion').modal({ backdrop: 'static', keyboard: false });
+            } else {
+                this.mensaje_confirmacion = 'No se ha podido registrar la movilidad intentelo nuevamente';
+                $('#modalConfirmacion').modal({ backdrop: 'static', keyboard: false });
+            }
        })
 
+    }
+
+    verificarFechaMovilidad(persona): Promise<any> {
+        return new Promise( (resolve, reject) => {
+            this.dataService.getMovilidad(persona).subscribe( data => {
+                const movilidades = data;
+                // si no hay movilidades previas
+                if (movilidades === null) {
+                    resolve();
+                } else {
+                    let cantidad_movilidades = 0;
+                    let cantidad_comparaciones_correctas = 0;
+                    for (const movilidad of Object.keys(movilidades)) {
+                        cantidad_movilidades++;
+                        if (
+                            this.datos_movilidad.FechaInicio < movilidades[movilidad].FechaInicio
+                            && this.datos_movilidad.FechaFin < movilidades[movilidad].FechaInicio
+                        ) {
+                            cantidad_comparaciones_correctas++;
+                        } else if (
+                            this.datos_movilidad.FechaInicio > movilidades[movilidad].FechaFin
+                            && this.datos_movilidad.FechaFin > movilidades[movilidad].FechaFin
+                        ) {
+                            cantidad_comparaciones_correctas++;
+                        }
+                    }
+                    if (cantidad_movilidades === cantidad_comparaciones_correctas) {
+                        resolve();
+                    } else {
+                        reject('date');
+                    }
+                }
+            });
+        })
     }
 
     guardarDatosMovilidad(): Promise<any> {
@@ -233,7 +272,6 @@ export class DocentesSalientesComponent implements OnInit {
 
             this.datos_movilidad.Institucion = parseInt(this.datos_movilidad.Institucion, 10);
             this.datos_movilidad.Pais = parseInt(this.datos_movilidad.Pais, 10);
-            console.log('datos movilidad', this.datos_movilidad);
 
             this.dataService.insertMovilidad(this.datos_movilidad).subscribe( (data) => {
                 console.log('movilidad insert', data);

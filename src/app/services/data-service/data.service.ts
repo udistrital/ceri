@@ -244,6 +244,13 @@ export class DataService {
       });
   }
 
+  getMovilidad(persona) {
+    return this.http.get(`${this.reporte_movilidad_url}movilidad/?query=persona:${persona}&fields=FechaInicio,FechaFin`)
+      .map( res => {
+        return res;
+      });
+  }
+
   // agrega movilidad
   insertMovilidad(movilidad: any): any {
     const body = JSON.stringify(movilidad);
